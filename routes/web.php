@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\BackEnd\DistrictController;
+use App\Http\Controllers\BackEnd\WardController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OrderController;
@@ -27,7 +29,8 @@ Route::get('thanh-toan',[OrderController::class,'checkout'])->name('order.checko
 Route::post('kiem-tra-thong-tin-so-dien-thoai',[OrderController::class,'searchPhoneOrder'])->name('order.search.phone_order');
 Route::get('loc-don-hang-ajax/theo-trang-thai',[OrderController::class,'ajaxFliter'])->name('order.ajaxFliter');
 Route::get('xem-don-hang-chi-tiet-ajax/theo-so-dien-thoai',[OrderController::class,'detail'])->name('order.detail');
-
+Route::post('OrderSuccess',[OrderController::class,'OrderSuccess'])->name('OrderSuccess');
+Route::get('dat-hang-thanh-cong/{id}',[OrderController::class,'viewOrderSuccess'])->name('order.success');
 
 Route::get('san-pham-{slug}',[ProductController::class,'list_product'])->name('cat0.product');
 Route::get('chi-tiet-san-pham/{slug}',[ProductController::class, 'detail'])->name('frontend.product.detail');
@@ -41,6 +44,9 @@ Route::get('tin-tuc/{slug}.html',[PostController::class,'detail'])->name('post.d
 
 
 Route::get('{slugpage}.html',[HomeController::class,'pages'])->name('pages');
+Route::get('district/get-list',[DistrictController::class,'getListByParentID'])->name('district.getListByParentID');
+Route::get('ward/get-list',[WardController::class,'getListByParentID'])->name('ward.getListByParentID');
+
 
 
 
