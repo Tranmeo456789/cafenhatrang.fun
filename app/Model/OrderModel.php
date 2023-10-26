@@ -21,7 +21,7 @@ class OrderModel extends BackEndModel
         $this->table               = 'order';
         $this->controllerName      = 'order';
         $this->folderUpload        = '' ;
-        $this->crudNotAccepted     = ['_token','btn_save'];
+        $this->crudNotAccepted     = ['_token','btn_save','gender','fullname','phone','email','address','province_id','district_id','ward_id'];
     }
     public function search($query,$params){
         if (isset($params['search']['value'] ) && ($params['search']['value'] !== "")) {

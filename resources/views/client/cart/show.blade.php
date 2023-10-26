@@ -152,7 +152,7 @@
                     </div>
                 </div>
                 @endforeach
-                <div class="total-cart-show">
+                <div class="total-cart-show mb-3">
                     <p id="total-price" class="">Tổng giá: <span><strong id="total-cart">{{ Cart::total() }}</strong> <span class="text-lowercase">đ</span></span></p>
                 </div>
                 <div class="text-right">

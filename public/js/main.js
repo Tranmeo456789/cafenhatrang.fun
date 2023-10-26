@@ -209,19 +209,17 @@ $(document).ready(function () {
             $('#rotatingElement').show();
             $('#rotatingElement').addClass('rotate');
             var _token = $('input[name="_token"]').val();
-            alert(_token);
+            var formAction = $(this).attr('action');
             // Gửi yêu cầu AJAX để xử lý gửi email
             $.ajax({
-                url: '/OrderSuccess', 
-                type: 'POST',
+                url: formAction, 
+                method: "POST",
+                dataType: 'json',
                 data: $(this).serialize(),
-                headers: {
-                    'X-CSRF-TOKEN': csrfToken // Bổ sung CSRF token vào header
-                },
+                
                 success: function (response) {
                     // Xử lý phản hồi sau khi email được gửi
                     if (response.status === 'success') {
-                        alert('Email đã được gửi thành công!');
                         // Chuyển hướng sau khi hoàn thành
                         window.location.href = response.redirect_url;
                     } else {

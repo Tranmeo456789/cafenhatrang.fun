@@ -84,11 +84,12 @@ class OrderController extends Controller
         return view('client.cart.checkout',compact('itemsProvince','order_id'));
     }
     function OrderSuccess(Request $request){
-        $params['note']=$request->input('note');
-        $params['delivery_method']=$request->input('delivery_method');
+        $params = $request->all();
+       // $params['note']=$request->input('note');
+        //$params['delivery_method']=$request->input('delivery_method');
         $params['total']=0;
         $params['total_product']=0;
-        $params['value_fee_ship']=(int)$request->input('value_fee_ship');
+        //$params['value_fee_ship']=(int)$request->input('value_fee_ship');
         foreach(Cart::content() as $itemCart){           
             $params['info_product'][$itemCart->id]['product_id']=$itemCart->id;
             $params['info_product'][$itemCart->id]['name']=$itemCart->name;
@@ -101,14 +102,14 @@ class OrderController extends Controller
             $params['total_product']+=$itemCart->qty;
         }
         $params['total']+=$params['value_fee_ship'];
-        $province=(new ProvinceModel)->getItem(['id'=>$request->input('province_id')],['task'=>'get-item-full']);
-        $district=(new DistrictModel)->getItem(['id'=>$request->input('district_id')],['task'=>'get-item-full']);
-        $ward=(new WardModel)->getItem(['id'=>$request->input('ward_id')],['task'=>'get-item-full']);
-        $params['buyer']['gender']=$request->gender;
-        $params['buyer']['fullname']=$request->input('fullname');
-        $params['buyer']['phone']=$request->input('phone');
-        $params['buyer']['email']=$request->input('email');
-        $params['buyer']['address']=$request->input('address').', '.$ward['name'].', '.$district['name'].', '.$province['name'];
+        $province=(new ProvinceModel)->getItem(['id'=>$params['province_id']],['task'=>'get-item-full']);
+        $district=(new DistrictModel)->getItem(['id'=>$params['district_id']],['task'=>'get-item-full']);
+        $ward=(new WardModel)->getItem(['id'=>$params['ward_id']],['task'=>'get-item-full']);
+        $params['buyer']['gender']=$params['gender'];
+        $params['buyer']['fullname']=$params['fullname'];
+        $params['buyer']['phone']=$params['phone'];
+        $params['buyer']['email']=$params['email'];
+        $params['buyer']['address']=$params['address'].', '.$ward['name'].', '.$district['name'].', '.$province['name'];
         (new OrderModel)->saveItem($params,['task'=>'frontend-save-item']);
         $OrderLast=OrderModel::latest('id')->first();
         (new OrderModel)->saveItem(['id' => $OrderLast->id],['task'=>'frontend-save-code-order']);
@@ -128,7 +129,7 @@ class OrderController extends Controller
         $data=[];
         $emailJob = new SendMailToAdmin();
         dispatch($emailJob);
-        //return redirect()->route('order.success', ['id'=>$OrderLast['id']]);
+       // return redirect()->route('order.success', ['id'=>$OrderLast['id']]);
         return response()->json([
             'status' => 'success',
             'redirect_url' => route('order.success', ['id' => $OrderLast['id']]),
