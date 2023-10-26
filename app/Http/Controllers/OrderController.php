@@ -187,19 +187,19 @@ class OrderController extends Controller
         $OrderLast=OrderModel::latest('id')->first();
         (new OrderModel)->saveItem(['id' => $OrderLast->id],['task'=>'frontend-save-code-order']);
         $OrderLast=OrderModel::latest('id')->first();
-        // $data=[
-        //     'code_order' => $OrderLast['code_order'],
-        //     'fullname'=>$OrderLast['buyer']['fullname'],
-        //     'email'=>$OrderLast['buyer']['email'],
-        //     'address'=>$OrderLast['buyer']['address'],
-        //     'phone'=>$OrderLast['buyer']['phone'],
-        //     'note'=>$OrderLast['note'],
-        //     'payments'=>$OrderLast['delivery_method'],
-        // ];
+        $data=[
+            'code_order' => $OrderLast['code_order'],
+            'fullname'=>$OrderLast['buyer']['fullname'],
+            'email'=>$OrderLast['buyer']['email'],
+            'address'=>$OrderLast['buyer']['address'],
+            'phone'=>$OrderLast['buyer']['phone'],
+            'note'=>$OrderLast['note'],
+            'payments'=>$OrderLast['delivery_method'],
+        ];
         
-        // if($request->input('email')){
-        //     Mail::to($request->input('email'))->send(new MailOrder( $data));
-        // }  
+        if($request->input('email')){
+            Mail::to($request->input('email'))->send(new MailOrder( $data));
+        }  
         //return($data);
         $data=[];
         $emailJob = new SendMailToAdmin();

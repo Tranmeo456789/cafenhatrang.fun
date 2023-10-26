@@ -6,7 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use App\Order;
+use App\Model\OrderModel;
 class MailOrder extends Mailable
 {
     use Queueable, SerializesModels;
@@ -29,8 +29,8 @@ class MailOrder extends Mailable
      */
     public function build()
     {
-        $order_id_last=Order::latest('id')->first();
-        $order=Order::where('id',$order_id_last['id']+1)->get();
+        $order_id_last=OrderModel::latest('id')->first();
+        $order=OrderModel::where('id',$order_id_last['id']+1)->get();
         return $this->view('mail.OrderComfirm')
         ->from('dungdeguimail89@gmail.com','STORE THUC')
         ->subject('[STORE THUC] Thông tin đơn hàng')->with($this->data);
