@@ -206,8 +206,8 @@ $(document).ready(function () {
         e.preventDefault();
         if ($(this).valid()) { // Kiểm tra validation form
             // Hiển thị hiệu ứng quay cho phần tử quay
-            $('#rotatingElement').show();
-            $('#rotatingElement').addClass('rotate');
+            $('.wp-rotatingElement').show();
+            $('.black-screen').css('display', 'block');
             var _token = $('input[name="_token"]').val();
             var formAction = $(this).attr('action');
             // Gửi yêu cầu AJAX để xử lý gửi email
@@ -225,8 +225,8 @@ $(document).ready(function () {
                     } else {
                         alert('Có lỗi xảy ra khi gửi email.');
                     }
-                    $('#rotatingElement').hide();
-                    $('#rotatingElement').removeClass('rotate');
+                    $('.black-screen').css('display', 'none');
+                    $('.wp-rotatingElement').hide();
                 }
             });
         }

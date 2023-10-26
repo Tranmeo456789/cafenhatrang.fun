@@ -250,26 +250,38 @@
     color: #fff;
     border-radius: 4px;
 }
-#rotatingElement {
-    width: 100px;
-    height: 100px;
-    background-color: #3498db;
-    position: absolute;
-    top: 50%;
-    left: 50%;
+.wp-rotatingElement {
+    position: fixed;
+    top: 50%; 
+    left: 50%; 
     transform: translate(-50%, -50%);
-    transition: transform 2s;
+    z-index: 504;
     display: none;
-    animation: rotate 2s infinite linear;
 }
-@keyframes rotate {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
+.title-rotatingElement{
+    font-size: 18px;
+    color: red;
 }
+#rotatingElement {
+    width: 10em;
+    height: 10em;
+    border-top: 1em solid #6da9f5;
+    border-right: 1em solid transparent;
+    border-radius: 50%;
+    animation: spinner 0.6s linear infinite;
+}
+.spinner {
+    width: 1em;
+    height: 1em;
+    background-color: #3cfa0c;
+    border-radius: 50%;
+    margin-left: 8.5em;
+    margin-top: 0.5em;
+  }
+  @keyframes spinner {
+    100% { transform: rotate(360deg) }
+  }
+
 .rotate {
     transform: translate(-50%, -50%) rotate(360deg);
 }

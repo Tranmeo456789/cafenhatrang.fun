@@ -76,6 +76,7 @@
                 <!-- Your Plugin chat code -->
                 <div id="fb-customer-chat" class="fb-customerchat"></div>
                 <div id="fixscreen-respon"></div>
+                <div class="wp-rotatingElement"><p class="title-rotatingElement">Đang đặt hàng...</p><div id="rotatingElement"><div class="spinner"></div></div></div>
                 <div class="black-screen"></div>
             </div>
         </div>
