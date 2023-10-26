@@ -100,7 +100,7 @@
     'url'            => route('OrderSuccess'),
     'accept-charset' => 'UTF-8',
     'class'          => 'form-complete-order',
-    'id'             => ''])  }}
+    'id'             => 'form-buy'])  }}
     <div class="section" id="customer-info-wp">
         <div class="section-head">
             <h1 class="section-title">Thông tin khách hàng</h1>

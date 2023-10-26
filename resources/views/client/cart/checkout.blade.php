@@ -22,6 +22,9 @@
     </div>
     <div id="wrapper" class="wp-inner clearfix">
         @include('client.cart.child_checkout.form_buy')
+        <div id="rotatingElement">
+            <!-- Nội dung phần tử quay -->
+        </div>
     </div>
 </div>
 @endsection

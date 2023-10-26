@@ -83,86 +83,12 @@ class OrderController extends Controller
        
         return view('client.cart.checkout',compact('itemsProvince','order_id'));
     }
-    // function locationAjax(Request $request){
-    //     $data=$request->all();
-    //     $output='';
-    //     if($data['action']){
-    //         if($data['action']=='city'){
-    //             $output.='<option value="">--Chọn quận huyện--</option>';
-    //             $select_province=DistrictModel::where('id', $data['maid'])->orderBy('id','asc')->get();
-    //             foreach($select_province as $item6){
-    //                 $output.='<option value="'.$item6->maqh.'">'.$item6->name_huyen.'</option>';
-    //             }
-    //         }else{
-    //             $output.='<option value="">--Chọn xã phường--</option>';
-    //             $select_wards=WardModel::where('maqh', $data['maid'])->orderBy('xaid','asc')->get();
-    //             foreach($select_wards as $item7){
-    //                 $output.='<option value="'.$item7->xaid.'">'.$item7->name_xa.'</option>';
-    //             }
-    //         }
-    //     }
-    //     echo $output;
-    // }
     function OrderSuccess(Request $request){
-        // if($request->input('email')==''){
-        //     $request->validate(
-        //         [
-        //         'fullname' => 'required|string|min:1',
-        //         'phone' => 'required|numeric|min:1',
-        //         'province'=> 'required',
-        //         'district' =>'required',
-        //         'ward' =>'required',
-        //         'address'=>'required|string|min:1',
-        //         ],
-        //         [
-        //             'numeric' => 'Số điện thoại không hợp lệ',
-        //             'required'=>'Vui lòng :attribute',
-        //             'min'=>':attribute có độ dài ít nhất :min ký tự',                  
-        //         ],
-        //         [
-        //             'fullname'=>'nhập họ và tên',
-        //             'phone'=>'nhập số điện thoại',
-        //             'province'=> 'chọn tỉnh thành phố',
-        //             'district' =>'chọn quận huyện',
-        //             'ward' =>'chọn xã phường thị trấn',
-        //             'address' => 'nhập địa chỉ'
-        //         ]
-        //     );
-        // }else{
-        //     $request->validate(
-        //         [
-        //         'fullname' => 'required|string|min:1',
-        //         'phone' => 'required|numeric|min:1',
-        //         'province'=> 'required',
-        //         'district' =>'required',
-        //         'ward' =>'required',
-        //         'email' => 'email',
-        //         'address'=>'required|string|min:1',
-        //         ],
-        //         [
-        //             'numeric' => 'Số điện thoại không hợp lệ',
-        //             'required'=>'Vui lòng :attribute',
-        //             'email'=> ':attribute không hợp lệ',
-        //             'min'=>':attribute có độ dài ít nhất :min ký tự',                  
-        //         ],
-        //         [
-        //             'fullname'=>'nhập họ và tên',
-        //             'phone'=>'nhập số điện thoại',
-        //             'province'=> 'chọn tỉnh thành phố',
-        //             'district' =>'chọn quận huyện',
-        //             'ward' =>'chọn xã phường thị trấn',
-        //             'address' => 'nhập địa chỉ',
-        //             'email'=>'Email',
-        //         ]
-        //     );
-        // }
-        
         $params['note']=$request->input('note');
         $params['delivery_method']=$request->input('delivery_method');
         $params['total']=0;
         $params['total_product']=0;
         $params['value_fee_ship']=(int)$request->input('value_fee_ship');
-        
         foreach(Cart::content() as $itemCart){           
             $params['info_product'][$itemCart->id]['product_id']=$itemCart->id;
             $params['info_product'][$itemCart->id]['name']=$itemCart->name;
@@ -196,16 +122,17 @@ class OrderController extends Controller
             'note'=>$OrderLast['note'],
             'payments'=>$OrderLast['delivery_method'],
         ];
-        
         if($request->input('email')){
             Mail::to($request->input('email'))->send(new MailOrder( $data));
         }  
-        //return($data);
         $data=[];
         $emailJob = new SendMailToAdmin();
         dispatch($emailJob);
-
-        return redirect()->route('order.success', ['id'=>$OrderLast['id']]);
+        //return redirect()->route('order.success', ['id'=>$OrderLast['id']]);
+        return response()->json([
+            'status' => 'success',
+            'redirect_url' => route('order.success', ['id' => $OrderLast['id']]),
+        ],200);
     }
     function viewOrderSuccess($id){
         //if($id==Str::lower(Order::latest('id')->first()['code_order'])){

@@ -201,6 +201,38 @@ $(document).ready(function () {
             $(element).closest(".input-group").removeClass('has-error');
         }
     });
+
+    $('#form-buy').submit(function (e) {
+        e.preventDefault();
+        if ($(this).valid()) { // Kiểm tra validation form
+            // Hiển thị hiệu ứng quay cho phần tử quay
+            $('#rotatingElement').show();
+            $('#rotatingElement').addClass('rotate');
+            var _token = $('input[name="_token"]').val();
+            alert(_token);
+            // Gửi yêu cầu AJAX để xử lý gửi email
+            $.ajax({
+                url: '/OrderSuccess', 
+                type: 'POST',
+                data: $(this).serialize(),
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken // Bổ sung CSRF token vào header
+                },
+                success: function (response) {
+                    // Xử lý phản hồi sau khi email được gửi
+                    if (response.status === 'success') {
+                        alert('Email đã được gửi thành công!');
+                        // Chuyển hướng sau khi hoàn thành
+                        window.location.href = response.redirect_url;
+                    } else {
+                        alert('Có lỗi xảy ra khi gửi email.');
+                    }
+                    $('#rotatingElement').hide();
+                    $('#rotatingElement').removeClass('rotate');
+                }
+            });
+        }
+    });
     $(".form-complete-order").validate({
         ignore: ".ignore",
         rules: {
