@@ -25,6 +25,9 @@ Route::get('mua-ngay-san-pham/{id}',[OrderController::class,'buynow'])->name('or
 Route::get('tra-cuu-thong-tin-don-hang',[OrderController::class,'viewSearchPhoneOrder'])->name('order.view_search_phone_order');
 Route::get('thanh-toan',[OrderController::class,'checkout'])->name('order.checkout');
 Route::post('kiem-tra-thong-tin-so-dien-thoai',[OrderController::class,'searchPhoneOrder'])->name('order.search.phone_order');
+Route::get('loc-don-hang-ajax/theo-trang-thai',[OrderController::class,'ajaxFliter'])->name('order.ajaxFliter');
+Route::get('xem-don-hang-chi-tiet-ajax/theo-so-dien-thoai',[OrderController::class,'detail'])->name('order.detail');
+
 
 Route::get('san-pham-{slug}',[ProductController::class,'list_product'])->name('cat0.product');
 Route::get('chi-tiet-san-pham/{slug}',[ProductController::class, 'detail'])->name('frontend.product.detail');
