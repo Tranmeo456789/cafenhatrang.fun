@@ -159,32 +159,23 @@ class CartController extends Controller
     }
     function feeAjax(Request $request){
         $data = $request->all();
-        //$selectValue = $data['selectValue'];
-
-
-        //$isAddress = $data['isAddress'];
-        
-        // if($isAddress==1){
-        //     $params['province_id'] = $selectValue;           
-        // }
-        // if($isAddress==2){
-        //     $params['district_id'] = $selectValue;   
-        //     $params['province_id'] = $data['provinceId']; 
-        // }
-        $params['province_id'] = $data['provinceId']; 
-        $params['district_id'] = $data['districtId'];
-        $params['ward_id'] = $data['wardId'];
-        $feeArrDetail = (new FeeShipModel)->getItem($params,['task'=>'get-item-follow-address']);
-        if($feeArrDetail==null){          
-            if($params['ward_id']!=null){
-                $feeArrDetail = (new FeeShipModel)->getItem(['district_id'=>$params['district_id']],['task'=>'get-item-follow-address']);
-            }elseif($params['district_id']!=null){
-                $feeArrDetail = (new FeeShipModel)->getItem(['province_id'=>$params['province_id']],['task'=>'get-item-follow-address']);
-            }else{
-                $feeArrDetail=(new FeeShipModel)->getItem(['id'=>1],['task'=>'get-item']);
+        $feeArrFirst=FeeShipModel::first();
+        if(!empty($data['provinceId'])){
+            $feeArrDetail = (new FeeShipModel)->getItem(['province_id'=>$data['provinceId']],['task'=>'get-item-follow-address']);
+            if(!empty($data['districtId'])){
+                $feeArrDistrict = (new FeeShipModel)->getItem(['district_id'=>$data['districtId']],['task'=>'get-item-follow-address']);
+                if($feeArrDistrict){
+                    $feeArrDetail=$feeArrDistrict;
+                }
+                if(!empty($data['wardId'])){
+                    $feeArrWard = (new FeeShipModel)->getItem(['ward_id'=>$data['districtId']],['task'=>'get-item-follow-address']);
+                    if($feeArrWard){
+                        $feeArrDetail=$feeArrWard;
+                    }
+                }
             }
         }
-        $feeDetail = $feeArrDetail->fee_ship;
+        $feeDetail=$feeArrDetail->fee_ship ?? $feeArrFirst->fee_ship;
         return view('client.cart.child_checkout.list_product_cart',compact('feeDetail'));
     }
 }

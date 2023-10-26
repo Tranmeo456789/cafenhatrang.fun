@@ -1,9 +1,9 @@
 @php
 use App\Model\FeeShipModel;
 
-$feeShipAll=(new FeeShipModel)->getItem(['id'=>1],['task'=>'get-item'])->fee_ship;
+$feeShipAll=FeeShipModel::first();
 
-$feeShip = $feeDetail ?? $feeShipAll;
+$feeShip = $feeDetail ?? $feeShipAll->fee_ship;
 $total = 0;
 @endphp
 <div class="section-head">
