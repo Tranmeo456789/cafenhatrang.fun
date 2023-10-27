@@ -47,7 +47,7 @@ Route::get('tin-tuc/{slug}.html',[PostController::class,'detail'])->name('post.d
 Route::get('{slugpage}.html',[HomeController::class,'pages'])->name('pages');
 Route::get('district/get-list',[DistrictController::class,'getListByParentID'])->name('district.getListByParentID');
 Route::get('ward/get-list',[WardController::class,'getListByParentID'])->name('ward.getListByParentID');
-
+include_once 'routes/shopBackEnd.php';
 
 
 
