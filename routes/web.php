@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginController as AuthLoginController;
 use App\Http\Controllers\BackEnd\DistrictController;
 use App\Http\Controllers\BackEnd\WardController;
 use App\Http\Controllers\CartController;
@@ -12,7 +13,17 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Gate;
 
 Route::get('/',[HomeController::class, 'index'])->name('home');
-Auth::routes(['register' => true]);
+//Auth::routes(['register' => true]);
+
+Route::get('/login',[AuthLoginController::class,'showLoginForm'])->name('login');
+Route::post('/login', 'Auth\LoginController@login');
+Route::get('/register', 'Auth\RegisterController@showRegistrationForm')->name('register');
+Route::post('/register', 'Auth\RegisterController@register');
+Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
+Route::get('/password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm');
+Route::post('/password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail');
+Route::get('/password/reset/{token}', 'Auth\ResetPasswordController@showResetForm');
+Route::post('/password/reset', 'Auth\ResetPasswordController@reset');
 
 Route::get('saveAjax/cart',[CartController::class,'saveAjax'])->name('cart.saveAjax');
 Route::get('show/cart',[CartController::class,'show'])->name('cart.show');
@@ -48,6 +59,8 @@ Route::get('{slugpage}.html',[HomeController::class,'pages'])->name('pages');
 Route::get('district/get-list',[DistrictController::class,'getListByParentID'])->name('district.getListByParentID');
 Route::get('ward/get-list',[WardController::class,'getListByParentID'])->name('ward.getListByParentID');
 include_once 'routes/shopBackEnd.php';
+
+
 
 
 
