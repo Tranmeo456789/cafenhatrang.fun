@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Gate;
 
 Route::get('/',[HomeController::class, 'index'])->name('home');
-//Auth::routes(['register' => true]);
+Auth::routes(['register' => true]);
 
 Route::get('saveAjax/cart',[CartController::class,'saveAjax'])->name('cart.saveAjax');
 Route::get('show/cart',[CartController::class,'show'])->name('cart.show');

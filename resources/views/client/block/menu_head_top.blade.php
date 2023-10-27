@@ -51,7 +51,7 @@ $pages=PageModel::all();
                         </div>
                     </li>
                 @else
-                <li><a href="">{{__('Log in')}}</a></li>
+                <li><a href="{{ route('login') }}">{{__('Log in')}}</a></li>
                 @if (Route::has('register'))
                 <!-- <li><a href="{{ route('register') }}">{{__('Register')}}</a></li> -->
                 @endif
