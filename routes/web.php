@@ -62,6 +62,11 @@ Route::get('ward/get-list',[WardController::class,'getListByParentID'])->name('w
 include_once 'routes/shopBackEnd.php';
 Route::middleware('auth')->group(function(){
     Route::get('backend/danh-sach-quyen',[RoleController::class,'list'])->name('backend.role.list')->middleware('can:list_role');
+    Route::get('backend/them-quyen',[RoleController::class,'add'])->name('backend.role.add')->middleware('can:add_role');
+    Route::post('backend/luu-quyen',[RoleController::class,'store'])->name('backend.role.store');
+    Route::get('backend/sua-quyen/{id}',[RoleController::class,'edit'])->name('backend.role.edit')->middleware('can:edit_role');
+    Route::post('backend/cap-nhat-quyen/{id}',[RoleController::class,'update'])->name('backend.role.update');
+    Route::get('backend/xoa-quyen/{id}',[RoleController::class,'delete'])->name('backend.role.delete');
 });
 
 

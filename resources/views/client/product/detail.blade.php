@@ -7,11 +7,11 @@
             @include("client.product.child_detail.breadcrumb")
         </div>
         <div class="main-content fl-right">
-            <div class="section" id="detail-product-wp">
-                <div class="section-detail clearfix">
+            <div class="section container-fluid" id="detail-product-wp">
+                <div class="row">
                     <!-- chỗ để list hình ảnh  -->
-                    <div class="thumb-wp fl-left">
-                        <figure id="main-thumb" class="zoom" style="background-image:url({{asset($productCurrent['thumbnail'])}})" onmousemove="zoom(event)" ontouchmove="zoom(event)">
+                    <div class="thumb-wp col-12 col-md-6">
+                        <!-- <figure id="main-thumb" class="zoom" style="background-image:url({{asset($productCurrent['thumbnail'])}})" onmousemove="zoom(event)" ontouchmove="zoom(event)">
                             <img src="{{asset($productCurrent['thumbnail'])}}">
                         </figure>                   
                         <div id="list-thumb">                           
@@ -21,10 +21,24 @@
                                 </div>                              
                                 <div class="text-center small" style="min-height: 100px"></div>                               
                             </div>                           
+                        </div> -->
+                        <div class="demo">
+                            <div id="lightSlider" class="item">
+                                <div class="clearfix" style="max-width:474px;">
+                                    <ul id="image-gallery" class="gallery list-unstyled cS-hidden">
+                                        <li data-thumb="{{asset($productCurrent['thumbnail'])}}" class="text-center">
+                                            <img src="{{asset($productCurrent['thumbnail'])}}" />
+                                        </li>
+                                        <li data-thumb="{{asset($productCurrent['thumbnail'])}}" class="text-center">
+                                            <img src="{{asset($productCurrent['thumbnail'])}}" />
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <!-- chỗ để list hình ảnh  -->
-                    <div class="info fl-right">
+                    <div class="info col-12 col-md-6">
                         <h3 class="product-name">{{$productCurrent['name']}}</h3>
                         <div class="desc">
                             {!!$productCurrent->describe!!}
