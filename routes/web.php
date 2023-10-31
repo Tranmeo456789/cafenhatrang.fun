@@ -8,22 +8,23 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\RoleController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Gate;
 
 Route::get('/',[HomeController::class, 'index'])->name('home');
-//Auth::routes(['register' => true]);
 
-Route::get('/login',[AuthLoginController::class,'showLoginForm'])->name('login');
-Route::post('/login', 'Auth\LoginController@login');
-Route::get('/register', 'Auth\RegisterController@showRegistrationForm')->name('register');
-Route::post('/register', 'Auth\RegisterController@register');
-Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
-Route::get('/password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm');
-Route::post('/password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail');
-Route::get('/password/reset/{token}', 'Auth\ResetPasswordController@showResetForm');
-Route::post('/password/reset', 'Auth\ResetPasswordController@reset');
+Route::get('/login',[AuthLoginController::class,'showLogin'])->name('show.login');
+Route::post('/login',[AuthLoginController::class, 'login'])->name('login');
+Route::post('/logout',[AuthLoginController::class, 'logout'])->name('logout');
+
+// Route::get('/register', 'Auth\RegisterController@showRegistrationForm')->name('register');
+// Route::post('/register', 'Auth\RegisterController@register');
+// Route::get('/password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm');
+// Route::post('/password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail');
+// Route::get('/password/reset/{token}', 'Auth\ResetPasswordController@showResetForm');
+// Route::post('/password/reset', 'Auth\ResetPasswordController@reset');
 
 Route::get('saveAjax/cart',[CartController::class,'saveAjax'])->name('cart.saveAjax');
 Route::get('show/cart',[CartController::class,'show'])->name('cart.show');
@@ -59,7 +60,9 @@ Route::get('{slugpage}.html',[HomeController::class,'pages'])->name('pages');
 Route::get('district/get-list',[DistrictController::class,'getListByParentID'])->name('district.getListByParentID');
 Route::get('ward/get-list',[WardController::class,'getListByParentID'])->name('ward.getListByParentID');
 include_once 'routes/shopBackEnd.php';
-
+Route::middleware('auth')->group(function(){
+    Route::get('backend/danh-sach-quyen',[RoleController::class,'list'])->name('backend.role.list')->middleware('can:list_role');
+});
 
 
 
