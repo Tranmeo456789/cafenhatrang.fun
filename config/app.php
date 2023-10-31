@@ -194,7 +194,7 @@ return [
     'aliases' => Facade::defaultAliases()->merge([
         'Cart' => Gloudemans\Shoppingcart\Facades\Cart::class,
         'Form' => Collective\Html\FormFacade::class,
-        'Html' => Collective\Html\HtmlFacade::class
+        'HTML' => Collective\Html\HtmlFacade::class
     ])->toArray(),
 
 ];
