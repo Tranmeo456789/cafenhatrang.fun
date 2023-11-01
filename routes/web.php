@@ -12,6 +12,7 @@ use App\Http\Controllers\RoleController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Gate;
+use UniSharp\LaravelFilemanager\Lfm;
 
 Route::get('/',[HomeController::class, 'index'])->name('home');
 
@@ -25,7 +26,13 @@ Route::post('/logout',[AuthLoginController::class, 'logout'])->name('logout');
 // Route::post('/password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail');
 // Route::get('/password/reset/{token}', 'Auth\ResetPasswordController@showResetForm');
 // Route::post('/password/reset', 'Auth\ResetPasswordController@reset');
+Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web']], function () {
+    Lfm::routes();
+});
 
+// Route::group(['prefix' => 'laravel-filemanager'], function () {
+//     \UniSharp\LaravelFilemanager\Lfm::routes();
+// });
 Route::get('saveAjax/cart',[CartController::class,'saveAjax'])->name('cart.saveAjax');
 Route::get('show/cart',[CartController::class,'show'])->name('cart.show');
 Route::post('add/cart',[CartController::class,'add'])->name('cart.add');
@@ -60,6 +67,11 @@ Route::get('{slugpage}.html',[HomeController::class,'pages'])->name('pages');
 Route::get('district/get-list',[DistrictController::class,'getListByParentID'])->name('district.getListByParentID');
 Route::get('ward/get-list',[WardController::class,'getListByParentID'])->name('ward.getListByParentID');
 include_once 'routes/shopBackEnd.php';
+
+
+// Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
+//     '\vendor\uniSharp\LaravelFilemanager\Lfm::routes()';
+// });
 Route::middleware('auth')->group(function(){
     Route::get('backend/danh-sach-quyen',[RoleController::class,'list'])->name('backend.role.list')->middleware('can:list_role');
     Route::get('backend/them-quyen',[RoleController::class,'add'])->name('backend.role.add')->middleware('can:add_role');

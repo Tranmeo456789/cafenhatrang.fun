@@ -30,6 +30,10 @@ return [
 
     'disks' => [
 
+        'shop_storage' => [
+            'driver' => 'local',
+            'root' => base_path('fileUpload'),
+        ],
         'local' => [
             'driver' => 'local',
             'root' => storage_path('app'),

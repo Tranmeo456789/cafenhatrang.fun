@@ -82,6 +82,12 @@ $elements = [
             'type'=>'input-file-show',
         ],
         [
+            'label'   => Form::label('image','Ảnh đại diện', ['class' => 'col-1 col-form-label']),
+            'element' => Template::createFileManager('image', $item['image']?? null),
+            'widthInput' => 'col-11',
+        ]
+        ,
+        [
             'label' => Form::label('describe', $label['describe'].':', $formLabelAttr),
             'element' => Form::textarea('describe', $item['describe']?? null, array_merge($formInputAttr,['placeholder'=>$label['describe'],"rows"=>"5"]))
         ],

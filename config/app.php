@@ -177,7 +177,9 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Gloudemans\Shoppingcart\ShoppingcartServiceProvider::class,
-        Collective\Html\HtmlServiceProvider::class
+        Collective\Html\HtmlServiceProvider::class,
+        UniSharp\LaravelFilemanager\LaravelFilemanagerServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class
     ],
 
     /*
@@ -194,7 +196,8 @@ return [
     'aliases' => Facade::defaultAliases()->merge([
         'Cart' => Gloudemans\Shoppingcart\Facades\Cart::class,
         'Form' => Collective\Html\FormFacade::class,
-        'HTML' => Collective\Html\HtmlFacade::class
+        'HTML' => Collective\Html\HtmlFacade::class,
+        'Image' => Intervention\Image\Facades\Image::class
     ])->toArray(),
 
 ];
