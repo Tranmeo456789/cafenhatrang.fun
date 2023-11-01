@@ -115,7 +115,7 @@ class Template {
                 if (isset($options['subFolder'])) $params['subFolder'] = $options['subFolder'];
 
                 $label = $valFile;
-                $path = "public/" . config("myconfig.folderUpload.mainFolder") . "/" . $controllerName . "/";
+                $path = config("myconfig.folderUpload.mainFolder") . "/" . $controllerName . "/";
                 $filePath = asset($path . $fileHash[$keyFile]);
                 $xhtml .= sprintf("<li>
                                     <img src='%s' class='img-fuild' style='margin-top:5px; max-height:100px;'>

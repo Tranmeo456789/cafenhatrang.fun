@@ -155,7 +155,7 @@ form div[class*=col-]:last-child .form-group {
     font-weight: 400;
 }
 
-.form-control-file{
+.hidden-input{
     width: 0.1px;
     height: 0.1px;
     opacity: 0;

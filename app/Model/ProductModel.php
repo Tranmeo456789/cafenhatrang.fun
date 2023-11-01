@@ -135,12 +135,12 @@ class ProductModel extends BackEndModel
     {
         $result = null;
         if ($options['task'] == 'get-item') {
-            $result = self::select('id','name','thumbnail','price','inventory','quantity_in_stock','promotion','unit_id','describe','content','status_product','slug','cat_id','image','created_at', 'updated_at')
+            $result = self::select('id','name','thumbnail','albumImage','albumImageHash','price','inventory','quantity_in_stock','promotion','unit_id','describe','content','status_product','slug','cat_id','image','created_at', 'updated_at')
                             ->where('id', $params['id'])
                             ->first();
         }
         if ($options['task'] == 'get-item-in-slug') {
-            $result = self::select('id','name','thumbnail','price','inventory','quantity_in_stock','promotion','unit_id','describe','content','status_product','slug','cat_id','image','created_at', 'updated_at')
+            $result = self::select('id','name','thumbnail','albumImage','albumImageHash','price','inventory','quantity_in_stock','promotion','unit_id','describe','content','status_product','slug','cat_id','image','created_at', 'updated_at')
                             ->where('slug', $params['slug'])
                             ->first();
         }
@@ -152,7 +152,7 @@ class ProductModel extends BackEndModel
 
         if ($options['task'] == 'frontend-get-item') {
             $result = self::with('unitProduct')
-                            ->select('id','name','thumbnail','price','inventory','quantity_in_stock','promotion','unit_id','describe','content','status_product','slug','cat_id','image','created_at', 'updated_at')
+                            ->select('id','name','thumbnail','albumImage','albumImageHash','price','inventory','quantity_in_stock','promotion','unit_id','describe','content','status_product','slug','cat_id','image','created_at', 'updated_at')
                             ->where('id', $params['id'])
                             ->first();
         }
@@ -167,22 +167,17 @@ class ProductModel extends BackEndModel
             // $params['featurer'] = isset($params['featurer'])?json_encode($params['featurer']): NULL;
             $params['user_id'] = $params['user_id'];
 
-            // if (isset($params['albumImage'])) {
-            //     $resultFileUpload       = $this->uploadFile($params['albumImage']);
-            //     $params['albumImage']   = $resultFileUpload['fileAttach'];
-            //     $params['albumImageHash']     = $resultFileUpload['fileHash'];
-            // }
-            // $catProduct = CatProductModel::find($params['cat_id']);
-            // if ($catProduct){
-            //     $params['cat_id'] = $catProduct->parent_id;
-            // }
-            
+            if (isset($params['albumImage'])) {
+                $resultFileUpload       = $this->uploadFile($params['albumImage']);
+                $params['albumImage']   = $resultFileUpload['fileAttach'];
+                $params['albumImageHash']     = $resultFileUpload['fileHash'];
+            }
             $id = self::insertGetId($this->prepareParams($params));
         }
         if ($options['task'] == 'edit-item') {
             $this->setModifiedHistory($params);
             $item = self::getItem($params,['task'=>'get-item']);
-            //$this->updateFileUpload($item,$params,'albumImage');
+            $this->updateFileUpload($item,$params,'albumImage');
            // $params['tick'] = isset($params['tick'])?json_encode($params['tick'],JSON_NUMERIC_CHECK ): NULL;
            // $params['featurer'] = isset($params['featurer'])?json_encode($params['featurer']): NULL;
            // $params['sell_area'] = ($params['sell_area'] != '')? json_encode($params['sell_area'],JSON_NUMERIC_CHECK ): NULL;

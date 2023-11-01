@@ -46,7 +46,7 @@ $elements = array_merge($elements,
     [
         [
             'label' => Form::label('file','Chọn ảnh cho bài viết', ['class' => "col-12 col-form-label btn btn-primary"]),
-            'element' => Form::file('file',['class' => "form-control-file",'onchange'=>'show_upload_image()']),
+            'element' => Form::file('file',['class' => "form-control-file hidden-input",'onchange'=>'show_upload_image()']),
             'imageSelect' => $imageSelect,
             'widthElement' => 'col-12',
             'widthInput' => 'col-11',

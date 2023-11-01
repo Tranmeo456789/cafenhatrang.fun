@@ -75,16 +75,18 @@ $elements = [
         ],
         [
             'label' => Form::label('file','Chọn ảnh từ máy', ['class' => "col-12 col-form-label btn btn-primary"]),
-            'element' => Form::file('file',['class' => "form-control-file",'onchange'=>'show_upload_image()']),
+            'element' => Form::file('file',['class' => "form-control-file hidden-input",'onchange'=>'show_upload_image()']),
             'imageSelect' => $imageSelect,
             'widthElement' => 'col-12',
             'widthInput' => 'col-11',
             'type'=>'input-file-show',
         ],
         [
-            'label'   => Form::label('image','Ảnh đại diện', ['class' => 'col-1 col-form-label']),
-            'element' => Template::createFileManager('image', $item['image']?? null),
-            'widthInput' => 'col-11',
+            'label'   => Form::label('albumImage', 'Album ảnh', ['class' => 'col-12 col-form-label']),
+            'element' => Form::file('albumImage[]', array_merge($formInputAttr,['multiple'=>'multiple','accept'=>'image/*'])),
+            'fileAttach'   => (!empty($item['id'])) ? Template::showImageAttachPreview($controllerName, $item['albumImage'],$item['albumImageHash'], $item['id'],['btn' => 'delete']) : null ,
+            'type'    => "fileAttachPreview",
+            'widthInput' => 'col-12',
         ]
         ,
         [
