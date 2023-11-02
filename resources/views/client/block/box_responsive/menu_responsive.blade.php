@@ -46,7 +46,7 @@ $pages=PageModel::all();
         </li>
         <div class=" pr-4">
             <li>
-                <a href="{{route('pages','tin-tuc')}}" title="">Tin tức</a>
+                <a href="{{route('posts')}}" title="">Tin tức</a>
             </li>
         </div>
         @foreach($pages as $page)

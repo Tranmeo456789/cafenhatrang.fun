@@ -601,7 +601,7 @@ window.fbAsyncInit = function() {
     var js, fjs = d.getElementsByTagName(s)[0];
     if (d.getElementById(id)) return;
     js = d.createElement(s); js.id = id;
-    js.src = 'https://storethuc.xyz/public/js/chat-facebook.js';
+    js.src = 'https://storethuc.000.pe/public/js/chat-facebook.js';
     fjs.parentNode.insertBefore(js, fjs);
   }(document, 'script', 'facebook-jssdk'));
   $(document).on('click', ".add-cart1", function (event){
