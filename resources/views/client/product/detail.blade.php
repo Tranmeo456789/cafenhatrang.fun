@@ -24,14 +24,16 @@
                         </div> -->
                         <div class="demo">
                             <div id="lightSlider" class="item">
-                                <div class="clearfix" style="max-width:474px;">
+                                <div>
                                     <ul id="image-gallery" class="gallery list-unstyled cS-hidden">
                                         <li data-thumb="{{asset($productCurrent['thumbnail'])}}" class="text-center">
                                             <img src="{{asset($productCurrent['thumbnail'])}}" />
                                         </li>
-                                        <li data-thumb="{{asset($productCurrent['thumbnail'])}}" class="text-center">
-                                            <img src="{{asset($productCurrent['thumbnail'])}}" />
+                                        @foreach($albumImageCurrent as $val)
+                                        <li data-thumb="{{asset('fileUpload/product/'.$val)}}" class="text-center">
+                                            <img src="{{asset('fileUpload/product/'.$val)}}" />
                                         </li>
+                                        @endforeach
                                     </ul>
                                 </div>
                             </div>

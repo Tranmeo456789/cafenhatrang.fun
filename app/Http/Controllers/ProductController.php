@@ -35,7 +35,8 @@ class ProductController extends Controller
     
     function detail($slug){   
         $productCurrent=(new ProductModel)->getItem(['slug'=>$slug],['task'=>'get-item-in-slug']);
-        return view('client.product.detail',compact('slug','productCurrent'));
+        $albumImageCurrent=explode('|', $productCurrent['albumImageHash']);
+        return view('client.product.detail',compact('slug','productCurrent','albumImageCurrent'));
     }
     function list_product($slug){
         $itemCatProduct=(new CatProductModel)->getItem(['slug'=>$slug],['task'=>'get-item-slug']);

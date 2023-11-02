@@ -536,6 +536,38 @@
     #support-wp .section-detail .list-item li{
         width: 50%;
     }
+    #detail-product-wp .info .product-name {
+        font-size: 18px;
+        padding-bottom: 10px;
+        margin-bottom: 10px;
+        text-align: justify;
+    }
+    #detail-product-wp .desc{
+        text-align: justify;
+    }
+    #detail-product-wp .info .price {
+        font-size: 20px;
+    }
+    #detail-product-wp .add-cart3 {
+        padding: 6px 20px;
+    }
+    #post-product-wp .section-title{
+        margin: 0;
+    }
+    #btnmenu-resp {
+        width: 20px;
+    }
+    #btn-cart {
+        width: 25px;
+    }
+    #wp-cart-respon #num {
+        top: -4px;
+        right: 0px;
+        font-size: 14px;
+        height: 18px;
+        padding: 3px 6px;
+        font-weight: 200;
+    }
 }
 
 @media screen and (max-width: 414px) {

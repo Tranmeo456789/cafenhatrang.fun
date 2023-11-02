@@ -293,12 +293,15 @@
     background-color: #f9f9f9;
 }
 .item-product-cart .num-order{
-    width: 32px;
+    width: 40px;
     text-align: center;
     border: none;
     background-color: #f9f9f9;
 }
-
+.name-product{
+    line-height: 18px;
+    padding-bottom: 4px;
+}
 .wp-num-cart{
     display: flex;
     height: 32px;
