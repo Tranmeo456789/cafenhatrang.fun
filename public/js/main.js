@@ -588,22 +588,22 @@ $(document).on('click', ".btn-closenk", function (event) {
     // window.setInterval('flakeFall();', 100);
 //ket thuc hieu ung hoa dao
 // start message facebook
-var chatbox = document.getElementById('fb-customer-chat');
-chatbox.setAttribute("page_id", "111239241882176");
-chatbox.setAttribute("attribution", "biz_inbox");
-window.fbAsyncInit = function() {
-    FB.init({
-      xfbml            : true,
-      version          : 'v15.0'
-    });
-  };
-  (function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) return;
-    js = d.createElement(s); js.id = id;
-    js.src = 'https://storethuc.000.pe/public/js/chat-facebook.js';
-    fjs.parentNode.insertBefore(js, fjs);
-  }(document, 'script', 'facebook-jssdk'));
+// var chatbox = document.getElementById('fb-customer-chat');
+// chatbox.setAttribute("page_id", "111239241882176");
+// chatbox.setAttribute("attribution", "biz_inbox");
+// window.fbAsyncInit = function() {
+//     FB.init({
+//       xfbml            : true,
+//       version          : 'v15.0'
+//     });
+//   };
+//   (function(d, s, id) {
+//     var js, fjs = d.getElementsByTagName(s)[0];
+//     if (d.getElementById(id)) return;
+//     js = d.createElement(s); js.id = id;
+//     js.src = 'https://storethuc.000.pe/public/js/chat-facebook.js';
+//     fjs.parentNode.insertBefore(js, fjs);
+//   }(document, 'script', 'facebook-jssdk'));
   $(document).on('click', ".add-cart1", function (event){
     event.preventDefault();
     var id = $(this).attr("data-id");

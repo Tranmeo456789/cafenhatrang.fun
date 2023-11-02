@@ -6,7 +6,7 @@
 <meta itemprop="description" content="Sản phẩm của cửa hàng bao gồm các mặt hàng như: Yến, Đồ ngâm rượu, Rượu ngâm, Nước mắm ... ">
 <meta itemprop="image" content="{{asset('images/image-thumb.png')}}">
 
-<meta property="og:url" content="https://storethuc.xyz">
+<meta property="og:url" content="https://storethuc.000.pe">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Cửa hàng Anh Thức">
 <meta property="og:description" content="Sản phẩm của cửa hàng bao gồm các mặt hàng như: Yến, Đồ ngâm rượu, Rượu ngâm, Nước mắm ... ">
