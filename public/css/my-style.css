@@ -2104,11 +2104,12 @@ input[type="number" i] {
     text-transform: uppercase;
     font-family: 'Roboto Medium';
     color: #fff;
-    padding: 13px 0px;
-    width: 15%;
+    padding: 15px 0px;
+    width: 16%;
 }
+
 #head-body-resposive #logo {
-    width: 100px;
+    width: 200px;
 }
 #head-body #search-wp {
     padding: 22px 10px 22px 100px;

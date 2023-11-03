@@ -1,8 +1,8 @@
 <div id="foot-body">
     <div class="wp-inner clearfix">
         <div class="block" id="info-company">
-            <h3 class="title">STORE THUC</h3>
-            <p class="desc">Cửa hàng luôn cung cấp luôn là sản phẩm chính hãng có thông tin rõ ràng, chính sách ưu đãi cực lớn cho khách hàng có thẻ thành viên.</p>
+            <h5 class="title">The moonlight</h5>
+            <p class="desc"></p>
             <div id="payment">
                 <div class="thumb">
                     <img src="{{asset('images/img-foot.png')}}" alt="">
@@ -19,7 +19,7 @@
                     <p>{{$phoneAdmin}}</p>
                 </li>
                 <li>
-                    <p>storethuc@gmail.com</p>
+                    <p>cafenhatrang94@gmail.com</p>
                 </li>
             </ul>
         </div>
@@ -49,10 +49,3 @@
         </div>
     </div>
 </div>
-<!-- <div id="foot-bot">
-    <div class="wp-inner">
-        <p id="copyright">
-            Copyright 2022 © CHCT; all rights reserved. Powered by CHCT
-        </p>
-    </div>
-</div> -->

@@ -2,21 +2,21 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <!-- Google / Search Engine Tags -->
-<meta itemprop="name" content="Cửa hàng Anh Thức">
-<meta itemprop="description" content="Sản phẩm của cửa hàng bao gồm các mặt hàng như: Yến, Đồ ngâm rượu, Rượu ngâm, Nước mắm ... ">
+<meta itemprop="name" content="The moonlight">
+<meta itemprop="description" content="Sản phẩm thức uống bao gồm: cafe muối, trà sữa các loại và một số thức uống khác ... ">
 <meta itemprop="image" content="{{asset('images/image-thumb.png')}}">
 
-<meta property="og:url" content="https://storethuc.000.pe">
+<meta property="og:url" content="https://cafenhatrang.000.pe">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Cửa hàng Anh Thức">
-<meta property="og:description" content="Sản phẩm của cửa hàng bao gồm các mặt hàng như: Yến, Đồ ngâm rượu, Rượu ngâm, Nước mắm ... ">
+<meta property="og:title" content="The moonlight">
+<meta property="og:description" content="Sản phẩm thức uống bao gồm: cafe muối, trà sữa các loại và một số thức uống khác ... ">
 <meta property="og:image" content="{{asset('images/image-thumb.png')}}">
 
 <!-- CSRF Token -->
 <meta name="csrf-token" content="{{ csrf_token() }}">
 
-<title>Cửa hàng anh thức</title>
-<meta name="description" content="Sản phẩm của cửa hàng bao gồm các mặt hàng như: Yến, Đồ ngâm rượu, Rượu ngâm, Nước mắm ... ">
+<title>The moonlight</title>
+<meta name="description" content="Sản phẩm thức uống bao gồm: cafe muối, trà sữa các loại và một số thức uống khác ... ">
 
 <link href="{{asset('css/bootstrap/bootstrap.min.css')}}?t=@php echo time() @endphp" rel="stylesheet" type="text/css"/>
 <!-- <link href="{{asset('css/reset.css')}}?t=@php echo time() @endphp" rel="stylesheet" type="text/css" /> -->
