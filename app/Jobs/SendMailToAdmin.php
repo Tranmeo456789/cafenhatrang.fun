@@ -33,6 +33,6 @@ class SendMailToAdmin implements ShouldQueue
     {
         $data=[];
         $email = new MailToAdmin($data);
-        Mail::to('kieptuattuat@gmail.com')->send($email);
+        Mail::to('cafenhatrang94@gmail.com')->send($email);
     }
 }

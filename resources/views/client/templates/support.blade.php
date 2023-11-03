@@ -13,7 +13,7 @@
                 <img src="{{asset('images/icon-2.png')}}">
             </div>
             <h3 class="title">Tư vấn 24/7</h3>
-            <p class="desc">0983195167</p>
+            <p class="desc">0349757794</p>
         </li>
         <li>
             <div class="thumb">

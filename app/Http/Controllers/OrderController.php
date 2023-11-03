@@ -78,7 +78,7 @@ class OrderController extends Controller
     }
     function checkout(){
        $order_id_last=OrderModel::latest('id')->first();
-       $order_id=$order_id_last['id']+1;
+       $order_id= isset($order_id_last['id']) ? $order_id_last['id']+1 : 1;
        $itemsProvince= (new ProvinceModel)->listItems(null,['task'=>'admin-list-items-in-selectbox']);
        
         return view('client.cart.checkout',compact('itemsProvince','order_id'));
@@ -129,24 +129,16 @@ class OrderController extends Controller
         $data=[];
         $emailJob = new SendMailToAdmin();
         dispatch($emailJob);
-       // return redirect()->route('order.success', ['id'=>$OrderLast['id']]);
         return response()->json([
             'status' => 'success',
             'redirect_url' => route('order.success', ['id' => $OrderLast['id']]),
         ],200);
     }
     function viewOrderSuccess($id){
-        //if($id==Str::lower(Order::latest('id')->first()['code_order'])){
-         
         $order=(new OrderModel)->getItem(['id'=>$id],['task'=>'get-item-frontend']);
         Cart::destroy();
         $data='';
-        //Mail::to('kieptuattuat@gmail.com')->send(new MailToAdmin($data));  
-        //Mail::to('kieptuattuat@gmail.com')->later(now()->addSecond(5), new MailToAdmin($data)); 
         return view('client.order.orderSuccess',compact('order'));
-        // }else{
-        //     return view('client.page404');
-        // }
     }
         
 

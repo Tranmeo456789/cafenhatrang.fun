@@ -18,7 +18,7 @@ class ProductModel extends BackEndModel
         $this->table               = 'product';
         $this->controllerName      = 'product';
         $this->folderUpload        = 'product';
-        $this->crudNotAccepted     = ['_token', 'btn_save','file-del','file'];
+        $this->crudNotAccepted     = ['_token', 'btn_save','file-del','file','files'];
     }
    
     // public function scopeOfUser($query)
