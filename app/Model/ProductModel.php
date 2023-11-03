@@ -166,13 +166,15 @@ class ProductModel extends BackEndModel
             // $params['tick'] = isset($params['tick'])?json_encode($params['tick'],JSON_NUMERIC_CHECK ): NULL;
             // $params['featurer'] = isset($params['featurer'])?json_encode($params['featurer']): NULL;
             $params['user_id'] = $params['user_id'];
-
+            $params['quantity_in_stock'] =0;
             if (isset($params['albumImage'])) {
                 $resultFileUpload       = $this->uploadFile($params['albumImage']);
                 $params['albumImage']   = $resultFileUpload['fileAttach'];
                 $params['albumImageHash']     = $resultFileUpload['fileHash'];
             }
             $id = self::insertGetId($this->prepareParams($params));
+            $wareHouseIDs = (new WarehouseModel())->listItems(null,['task' =>'user-list-all-items']);
+            self::find($id)->warehouse()->attach($wareHouseIDs);
         }
         if ($options['task'] == 'edit-item') {
             $this->setModifiedHistory($params);
@@ -231,6 +233,10 @@ class ProductModel extends BackEndModel
     }
     public function catProduct(){
         return $this->belongsTo('App\Model\CatProductModel','cat_id','id');
+    }
+    public function warehouse()
+    {
+        return $this->belongsToMany(WarehouseModel::class,'product_warehouse','product_id','warehouse_id');
     }
     public function productWarehouse()
     {
