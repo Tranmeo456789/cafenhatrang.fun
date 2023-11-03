@@ -7,7 +7,7 @@ $pages=PageModel::all();
 
 @endphp
 <div class="tlogo-menu position-relative">
-    <div class="d-flex justify-content-start align-items-center width-100">
+    <div class="d-flex justify-content-start align-items-center width-200">
         <img src="{{asset('images/logo.png')}}">
     </div>
     <div class="closem" id="closem"><img src="{{asset('images/closem.png')}}"></div>
