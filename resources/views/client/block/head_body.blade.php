@@ -1,9 +1,5 @@
 <div class="wp-inner clearfix">
-    @if (Auth::check())
-    <a href="{{url('/home')}}" title="" id="logo" class="fl-left"><img src="{{asset('images/logo.png')}}" /></a>
-    @else
     <a href="{{url('/')}}" title="" id="logo" class="fl-left"><img src="{{asset('images/logo.png')}}" /></a>
-    @endif
     <div id="search-wp" class="fl-left">
         <div class="wp-form-search">
             <form method="GET" action="{{route('frontend.product.search')}}" class="d-flex justify-content-center">

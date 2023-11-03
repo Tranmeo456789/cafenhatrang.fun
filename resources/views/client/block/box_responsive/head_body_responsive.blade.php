@@ -2,11 +2,7 @@
     <div class="py-2 d-flex justify-content-between">
         <div id="btnmenu-resp"><img src="{{asset('images/nb3.png')}}" alt=""></div>
         <div id="logo">
-            @if (Auth::check())
-            <a href="{{url('/home')}}"><img src="{{asset('images/logo.png')}}" /></a>
-            @else
             <a href="{{url('/')}}"><img src="{{asset('images/logo.png')}}" /></a>
-            @endif
         </div>
         <div id="wp-cart-respon">
             <div class="wp-icon-cart wp-icon-cart-respon">

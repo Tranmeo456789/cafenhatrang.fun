@@ -12,11 +12,7 @@ $pages=PageModel::all();
     <div id="main-menu-wp" class="fl-left">
         <ul id="main-menu" class="clearfix">
             <li>
-                @if (Auth::check())
-                <a href="{{url('/home')}}" title="">Trang chủ</a>
-                @else
                 <a href="{{url('/')}}" title="">Trang chủ</a>
-                @endif
             </li>
             <li>
                 <a href="{{url('san-pham')}}" title="">Sản phẩm</a>

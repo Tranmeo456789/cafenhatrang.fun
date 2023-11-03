@@ -179,6 +179,14 @@
                 </ul>
             </li>
             <li class="nav-item has-treeview">
+                <a href="{{route('home')}}" class="nav-link">
+                    <i class="nav-icon fab fa-arrow-left"></i>
+                    <p>
+                        Quay về trang chủ
+                    </p>
+                </a>
+            </li>
+            <li class="nav-item has-treeview">
                 <a href="{{route('logout')}}" class="nav-link" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                         @csrf
