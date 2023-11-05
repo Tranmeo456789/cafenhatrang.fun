@@ -97,7 +97,6 @@
                 'delivery_service'=>'Đơn vị vận chuyển',
                 'image'=>'Hình ảnh',
                 'role_id'=>'Chọn nhóm quyền',
-                'inventory'=>'Số lượng tồn kho',
                 'quantity_in_stock'=>'Số lượng tồn kho',
                 'promotion'=>'Khuyến mãi(%)'
             ],

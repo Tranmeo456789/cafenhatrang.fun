@@ -87,7 +87,6 @@ class ProductController extends BackEndController
             $thumbnail="";
             $notify = "Thêm mới $this->pageTitle thành công!";
             $params['user_id']=Auth::id();
-            //$params['inventory']=0;
             if ($params['id'] != null) {
                 $task   = "edit-item";
                 $params["id"] = $request->id;
