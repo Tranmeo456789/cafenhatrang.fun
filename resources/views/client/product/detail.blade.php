@@ -30,9 +30,11 @@
                                             <img src="{{asset($productCurrent['thumbnail'])}}" />
                                         </li>
                                         @foreach($albumImageCurrent as $val)
+                                        @if(!empty($val))
                                         <li data-thumb="{{asset('fileUpload/product/'.$val)}}" class="text-center">
                                             <img src="{{asset('fileUpload/product/'.$val)}}" />
                                         </li>
+                                        @endif
                                         @endforeach
                                     </ul>
                                 </div>
@@ -56,7 +58,7 @@
                                 <div class="d-flex">
                                     <div class="d-inline-block mr-3 align-self-center"><span style="font-size:18px;padding-top: 5px">Số lượng:</span></div>
                                     <a title="" id="minus"><i class="fa fa-minus"></i></a>
-                                    <input type="text" name="num_order" value="1" min="1" max="{{$productCurrent['inventory']}}" id="num-order" readonly>
+                                    <input type="text" name="num_order" value="1" min="1" max="{{$productCurrent['quantity_in_stock']}}" id="num-order" readonly>
                                     <a title="" id="plus"><i class="fa fa-plus"></i></a>
                                     <input type="hidden" name="id_product" value="{{$productCurrent->id}}">
                                 </div>

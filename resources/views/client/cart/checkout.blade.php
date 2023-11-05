@@ -7,11 +7,7 @@
             <div class="section-detail">
                 <ul class="list-item clearfix">
                     <li>
-                        @if (Auth::check())
-                            <a href="{{url('/home')}}" title="">Trang chủ</a>
-                        @else
-                            <a href="{{url('/')}}" title="">Trang chủ</a>
-                        @endif                                   
+                        <a href="{{url('/')}}" title="">Trang chủ</a>
                     </li>
                     <li>
                         <a href="" title="">Thanh toán</a>

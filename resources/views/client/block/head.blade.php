@@ -6,7 +6,7 @@
 <meta itemprop="description" content="Sản phẩm thức uống bao gồm: cafe muối, trà sữa các loại và một số thức uống khác ... ">
 <meta itemprop="image" content="{{asset('images/image-thumb.png')}}">
 
-<meta property="og:url" content="https://cafenhatrang.000.pe">
+<meta property="og:url" content="https://cafenhatrang.fun">
 <meta property="og:type" content="website">
 <meta property="og:title" content="The moonlight">
 <meta property="og:description" content="Sản phẩm thức uống bao gồm: cafe muối, trà sữa các loại và một số thức uống khác ... ">

@@ -39,7 +39,7 @@ class CartController extends Controller
                 'name' => $product1->name,
                 'qty' => $qty1,
                 'price' => $product1->price,
-                'options' => ['slug' => $product1->slug, 'thumbnail' => $product1->thumbnail, 'unit' => $product1->unitProduct->name,'inventory'=>$product1->inventory],
+                'options' => ['slug' => $product1->slug, 'thumbnail' => $product1->thumbnail, 'unit' => $product1->unitProduct->name,'quantity_in_stock'=>$product1->quantity_in_stock],
             ]);
         }
         return redirect('show/cart');
@@ -67,7 +67,7 @@ class CartController extends Controller
                 'name' => $product->name,
                 'qty' => 1,
                 'price' => $product->price,
-                'options' => ['slug' => $product->slug, 'thumbnail' => $product->thumbnail, 'unit' => $product->unitProduct->name,'inventory'=>$product->inventory],
+                'options' => ['slug' => $product->slug, 'thumbnail' => $product->thumbnail, 'unit' => $product->unitProduct->name,'quantity_in_stock'=>$product->quantity_in_stock],
             ]);
         }
         $num_order = Cart::count();

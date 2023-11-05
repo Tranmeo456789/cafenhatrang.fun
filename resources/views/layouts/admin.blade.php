@@ -12,7 +12,7 @@
     <script src="https://cdn.tiny.cloud/1/cilgdefwwpjwph4t9r56jwn4kf0yp1sqhhl0l0sf7z400bng/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
     <script>
         var editor_config = {
-        path_absolute : "http://localhost/storethuc.000.pe/",
+        path_absolute : "http://localhost/storethuc.fun/",
         selector: '#mytextarea',
         height: 500,
         relative_urls: false,
@@ -52,7 +52,7 @@
     </script>
     <script>
         var editor_config = {
-        path_absolute : "http://localhost/storethuc.000.pe/",
+        path_absolute : "http://localhost/storethuc.fun/",
         selector: '#describe',
         height: 250,
         relative_urls: false,

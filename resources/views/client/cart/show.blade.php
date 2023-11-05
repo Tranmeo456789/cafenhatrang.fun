@@ -75,7 +75,7 @@
                                                 <div class="col-12 col-md-5">
                                                     <div class="wp-num-cart">
                                                         <span title="" class="minus1"><i class="fa fa-minus"></i></span>
-                                                        <input type="text" data-id="{{$row->id}}" data-rowId="{{$row->rowId}}" data-url="{{route('updateCartAjax')}}" data-qtyFrist="{{$row->qty}}" name="qty[{{$row->rowId}}]" value="{{$row->qty}}" class="num-order" min="1" max="{{$row->options->inventory}}" maxlength="{{strlen($row->options->inventory)}}">
+                                                        <input type="text" data-id="{{$row->id}}" data-rowId="{{$row->rowId}}" data-url="{{route('updateCartAjax')}}" data-qtyFrist="{{$row->qty}}" name="qty[{{$row->rowId}}]" value="{{$row->qty}}" class="num-order" min="1" max="{{$row->options->quantity_in_stock}}" maxlength="{{strlen($row->options->quantity_in_stock)}}">
                                                         <span title="" class="plus1"><i class="fa fa-plus"></i></span>
                                                     </div>
                                                 </div>
@@ -101,12 +101,7 @@
             <div class="section" id="action-cart-wp">
                 <div class="section-detail">
                     <p class="title">Click vào <span>“Cập nhật giỏ hàng”</span> để cập nhật số lượng. Nhấn vào thanh toán để hoàn tất mua hàng.</p>
-                    @if (Auth::check())
-                    <a href="{{url('/home')}}" title="">Mua tiếp</a><br />
-                    @else
                     <a href="{{url('/')}}" title="">Mua tiếp</a><br />
-                    @endif
-
                     <a href="{{route('cart.destroy')}}" title="" id="delete-cart">Xóa giỏ hàng</a>
                 </div>
             </div>
