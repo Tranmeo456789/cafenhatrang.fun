@@ -49,6 +49,15 @@ class SettingController extends BackEndController
             $params['user_id']=Auth::id();          
             $task   = "edit-item";
             $notify = "Cập nhật thông tin thành công!";
+            if($request->hasFile('file')){
+                $file=$request->file;
+                $filename = $file->getClientOriginalName();
+                $path = $file->move('public/images', $file->getClientOriginalName());
+            }else{
+                $item = $this->model->getItem($params, ['task' => 'get-item']);
+                $filename=$item['logo'];
+            }
+            $params['logo']=$filename;
             $this->model->saveItem($params, ['task' => $task]);
             $request->session()->put('app_notify', $notify);
                 return response()->json([

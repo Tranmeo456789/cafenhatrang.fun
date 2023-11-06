@@ -16,12 +16,31 @@
     $inputFileDel = isset($item['id'])?Form::hidden('file-del'):'';
 
     $itemsColor = (new ColorModel())->listItems(null, ['task' => 'admin-list-items-in-selectbox']);
-
+    
+    $imageSelect= isset($item['logo'])?sprintf(asset('images/'.$item['logo'])):'';
+    if(isset($_FILES['file']) && !empty($_FILES['file']['name'])){
+    $assetImg= sprintf(asset('uploads/images/product//'));
+    $nameImg= sprintf('/'.$_FILES['file']['name']);
+    $imageSelect= $assetImg.$nameImg;
+    };
 $elements = [
     [
     'label' => HTML::decode(Form::label('name', 'Tên theme' . $star, $formLabelAttr)),
     'element' => Form::text('name', $item['name']??null, array_merge($formInputAttr,['placeholder'=>'Tên theme'])),
     'widthElement' => 'col-12'
+    ],
+    [
+        'label' => HTML::decode(Form::label('logo', 'Chọn hình ảnh logo' . $star , $formLabelAttr)),
+        'element' =>'',
+        'widthElement' => 'col-12',
+    ],
+    [
+        'label' => Form::label('file','Chọn hình từ máy', ['class' => "col-12 col-form-label btn btn-primary"]),
+        'element' => Form::file('file',['class' => "form-control-file hidden-input",'onchange'=>'show_upload_image()']),
+        'imageSelect' => $imageSelect,
+        'widthElement' => 'col-12',
+        'widthInput' => 'col-11',
+        'type'=>'input-file-show',
     ],
     [
     'label' => HTML::decode(Form::label('phone', 'Số điện thoại' . $star, $formLabelAttr)),
@@ -87,6 +106,7 @@ $title = 'Thông tin trang chủ';
                             'url'            => route("$controllerName.infomation.save"),
                             'accept-charset' => 'UTF-8',
                             'class'          => 'form-horizontal form-label-left',
+                            'enctype'        => 'multipart/form-data',
                             'id'             => 'main-form' ])  }}
                 <div class="row">
                     {!! FormTemplate::show($elements,$formInputWidth) !!}

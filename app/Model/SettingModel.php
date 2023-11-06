@@ -15,19 +15,19 @@ class SettingModel extends BackEndModel
         $this->table               = 'infomation';
         $this->controllerName      = 'setting';
         $this->folderUpload        = '';
-        $this->crudNotAccepted     = ['_token', 'btn_save','file-del'];
+        $this->crudNotAccepted     = ['_token', 'btn_save','file-del','file'];
     }
    
     public function getItem($params = null, $options = null)
     {
         $result = null;
         if ($options['task'] == 'get-item') {
-            $result = self::select('id','name','phone','address','color_bg_header','color_bg_body','user_id','created_at', 'updated_at')
+            $result = self::select('id','name','logo','phone','address','color_bg_header','color_bg_body','user_id','created_at', 'updated_at')
                             ->where('id', $params['id'])
                             ->first();
         }
         if ($options['task'] == 'frontend-get-item') {
-            $result = self::select('id','name','phone','address','color_bg_header','color_bg_body','user_id','created_at', 'updated_at')
+            $result = self::select('id','name','logo','phone','address','color_bg_header','color_bg_body','user_id','created_at', 'updated_at')
                             ->where('id', $params['id'])
                             ->first();
         }
