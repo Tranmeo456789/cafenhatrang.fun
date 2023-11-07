@@ -2241,8 +2241,12 @@ position: relative;
     display: none;
 }
 #btnmenu-resp{
-    width: 30px;
+    padding: 10px;
     align-self: center;
+    cursor: pointer;
+}
+#btnmenu-resp img{
+    width: 30px;
 }
 #search-wp-responsive .wp-input-search{
     width: 100%;

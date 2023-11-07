@@ -80,7 +80,7 @@ $(document).ready(function () {
         itemsDesktop: [1000, 4], //5 items between 1000px and 901px
         itemsDesktopSmall: [800, 3], // betweem 900px and 601px
         itemsTablet: [600, 2], //2 items between 600 and 0
-        itemsMobile: [375, 1] // itemsMobile disabled - inherit from itemsTablet option
+        itemsMobile: [375, 2] // itemsMobile disabled - inherit from itemsTablet option
     });
 
     //  SAME CATEGORY
@@ -96,7 +96,7 @@ $(document).ready(function () {
         itemsDesktop: [1000, 4], //5 items between 1000px and 901px
         itemsDesktopSmall: [800, 3], // betweem 900px and 601px
         itemsTablet: [600, 2], //2 items between 600 and 0
-        itemsMobile: [375, 1] // itemsMobile disabled - inherit from itemsTablet option
+        itemsMobile: [375, 2] // itemsMobile disabled - inherit from itemsTablet option
     });
 
     //  SCROLL TOP

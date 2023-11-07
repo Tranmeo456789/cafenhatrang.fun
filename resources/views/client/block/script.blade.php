@@ -5,8 +5,8 @@
 <script src="{{asset('js/bootstrap/popper.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('js/bootstrap/bootstrap.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('js/carousel/owl.carousel.js')}}" type="text/javascript"></script>
-<script src="{{asset('js/main.js')}}" type="text/javascript"></script>
-<script src="{{ asset('js/app.js') }}" type="text/javascript"></script>
+<script src="{{asset('js/main.js')}}?t=@php echo time() @endphp" type="text/javascript"></script>
+<script src="{{ asset('js/app.js') }}?t=@php echo time() @endphp" type="text/javascript"></script>
 <script src="{{ asset('js/jquery.validate.min.js') }}" type="text/javascript"></script>
 <script src="{{asset('js/lightslider.js')}}" type="text/javascript"></script>
 <script src="{{asset('js/sweetalert.min.js')}}"></script>
