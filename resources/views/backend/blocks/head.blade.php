@@ -1,7 +1,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
-<link rel="icon" href="{{ asset('images/logo.png')}}" type="image/ico"/>
+<link rel="icon" href="{{ asset('images/logo.png')}}?t=@php echo time() @endphp" type="image/ico"/>
 <title>Admin the moonlight</title>
 <!-- Font Awesome Free 5.13.0 -->
 <link rel="stylesheet" href="{{ asset('template/css/fontawesome.min.css') }}">

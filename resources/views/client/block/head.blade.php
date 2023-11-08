@@ -12,6 +12,13 @@
 <meta property="og:description" content="Sản phẩm thức uống bao gồm: cafe muối, trà sữa các loại và một số thức uống khác ... ">
 <meta property="og:image" content="{{asset('images/image-thumb.png')}}">
 
+<!-- zalo -->
+<meta property="og:zalo:app_name" content="The moonlight">
+<meta property="og:zalo:link" content="https://cafenhatrang.fun">
+<meta property="og:zalo:title" content="The moonlight">
+<meta property="og:zalo:description" content="Sản phẩm thức uống bao gồm: cafe muối, trà sữa các loại và một số thức uống khác ...">
+<meta property="og:zalo:image" content="{{asset('images/image-thumb.png')}}">
+
 <!-- CSRF Token -->
 <meta name="csrf-token" content="{{ csrf_token() }}">
 

@@ -1,7 +1,7 @@
 <!-- sidebar: style can be found in sidebar.less -->
 <!-- Brand Logo -->
 <a href="" class="brand-link">
-    <img src="{{asset('images/logo.png')}}" alt="Tdoctor" class="brand-image img-fluid">
+    <img src="{{asset('images/logo.png')}}?t=@php echo time() @endphp" alt="Tdoctor" class="brand-image img-fluid">
 </a>
 <div class="sidebar">
     <!-- Sidebar Menu -->

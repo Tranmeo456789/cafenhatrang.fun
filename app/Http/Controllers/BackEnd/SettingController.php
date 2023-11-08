@@ -9,7 +9,7 @@ use App\Http\Controllers\BackEnd\BackEndController;
 use App\Http\Requests\SettingRequest as MainRequest;
 
 use App\Helpers\MyFunction;
-
+use Illuminate\Support\Facades\Storage;
 use DB;
 use Session;
 use Illuminate\Support\Str;
@@ -49,10 +49,15 @@ class SettingController extends BackEndController
             $params['user_id']=Auth::id();          
             $task   = "edit-item";
             $notify = "Cập nhật thông tin thành công!";
+            $filename = 'logo.png';
             if($request->hasFile('file')){
                 $file=$request->file;
-                $filename = $file->getClientOriginalName();
-                $path = $file->move('public/images', $file->getClientOriginalName());
+                $filePath = 'images/logo.png'.$filename;
+
+                if (Storage::disk('public')->exists($filePath)) {
+                    Storage::disk('public')->delete($filePath);
+                }
+                $file->move('public/images', $filename);
             }else{
                 $item = $this->model->getItem($params, ['task' => 'get-item']);
                 $filename=$item['logo'];

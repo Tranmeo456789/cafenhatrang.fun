@@ -1,5 +1,5 @@
 <div class="wp-inner clearfix">
-    <a href="{{url('/')}}" title="" id="logo" class="fl-left"><img src="{{asset('images/logo.png')}}" /></a>
+    <a href="{{url('/')}}" title="" id="logo" class="fl-left"><img src="{{asset('images/logo.png')}}?t=@php echo time() @endphp" /></a>
     <div id="search-wp" class="fl-left">
         <div class="wp-form-search">
             <form method="GET" action="{{route('frontend.product.search')}}" class="d-flex justify-content-center">

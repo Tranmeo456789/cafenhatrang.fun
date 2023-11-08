@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-4">
             <div class="form-lgrg">
-                <div class="text-center title-form-login"><div class="img-title-login"><a href="{{url('/')}}"><img src="{{asset('images/logo.png')}}" /></a></div></div>
+                <div class="text-center title-form-login"><div class="img-title-login"><a href="{{url('/')}}"><img src="{{asset('images/logo.png')}}?t=@php echo time() @endphp" /></a></div></div>
                 <div class="card-body">
                     <form method="POST" action="{{ route('login') }}">
                         @csrf

@@ -181,7 +181,7 @@ class Form
                             %s
                             <div class='%s'>
                                 %s
-                                <div class='col-12 col-md-4 mt-1'><img src='%s' id='image-thumbnail' class='border img-fluid'></div>
+                                <div class='col-12 col-md-4 mt-1'><img src='%s?t=%s' id='image-thumbnail' class='border img-fluid'></div>
                             <span class='help-block'></span>
                         </div>
                     </div>
@@ -190,7 +190,8 @@ class Form
                     $element['label'],
                     $widthInput,
                     $element['element'],
-                    $imageSelect
+                    $imageSelect,
+                    time()
                 );
                     break;
             case 'fileAttachPreview':
