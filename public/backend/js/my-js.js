@@ -509,3 +509,29 @@ $(document).on('change', '.wp-select-color select', function() {
     let selectValue = $(this).val();
     $(this).closest('.wp-select-color').next().find('.form-control').css('background-color', selectValue);
 });
+// Gọi API để lấy dữ liệu từ Laravel
+fetch('get-chart-data')
+.then(response => response.json())
+.then(data => {
+    // Sử dụng Highcharts để vẽ biểu đồ
+    Highcharts.chart('chart-container', {
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Biểu đồ doanh thu theo tháng'
+        },
+        xAxis: {
+            categories: data.categories
+        },
+        yAxis: {
+            title: {
+                text: 'Doanh thu (VNĐ)'
+            }
+        },
+        series: data.series,
+        accessibility: {
+            enabled: true // Hoặc false nếu bạn muốn tắt module
+        }
+    });
+});
