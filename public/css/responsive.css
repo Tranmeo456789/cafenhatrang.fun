@@ -523,6 +523,7 @@
     }
     #support-wp .section-detail .list-item li .title{
         font-size: 12px;
+        margin-bottom: 2px;
     }
     #support-wp .section-detail .list-item li .desc{
         font-size: 10px;
