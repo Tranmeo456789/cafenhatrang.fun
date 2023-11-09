@@ -34,6 +34,7 @@ Route::group(['prefix' => $prefixShopBackEnd, 'namespace' => 'BackEnd', 'middlew
    
         Route::get('/dashboard',[DashboardController::class,'index'])->name('dashboard');
         Route::get('/loc-doanh-thu-theo-thoi-gian',[DashboardController::class,'filterInDay'])->name('dashboard.filterInDay');
+        Route::get('/get-chart-data', [DashboardController::class, 'getChartData']);
 
         Route::get('/danh-sach-don-vi-tinh',[UnitController::class,'index'])->name('unit')->middleware('can:list_unit');
         Route::get('/them-don-vi-tinh',[UnitController::class,'form'])->name('unit.add')->middleware('can:add_unit');

@@ -96,6 +96,10 @@ use App\Helpers\MyFunction;
     <div class="data-revenue">
         @include("$moduleName.pages.$controllerName.child_index.revenue_sell")
     </div>
+    <div class="wp-chart">
+        <div id="chart-container" style="height: 400px;"></div>
+        
+    </div>
     <!-- <div class="card card-outline card-primary mb800-0">
         @include("$moduleName.blocks.x_title", ['title' => 'THÔNG TIN KHO'])
         <div class="card-body">

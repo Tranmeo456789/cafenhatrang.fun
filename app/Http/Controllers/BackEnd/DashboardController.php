@@ -52,4 +52,18 @@ class DashboardController extends BackEndController
         //     'total_revenue' => $total_revenue,
         // ]);
     }
+    public function getChartData()
+    {
+        $chartData = [
+            'categories' => ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5'],
+            'series' => [
+                [
+                    'name' => 'Doanh thu',
+                    'data' => [1500, 2200, 1800, 2500, 2000]
+                ]
+            ]
+        ];
+
+        return response()->json($chartData);
+    }
 }
