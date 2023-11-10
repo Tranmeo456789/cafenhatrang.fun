@@ -2,9 +2,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <!-- Google / Search Engine Tags -->
-<meta itemprop="name" content="The moonlight">
-<meta itemprop="description" content="Sản phẩm thức uống bao gồm: cafe muối, trà sữa các loại và một số thức uống khác ... ">
+<meta itemprop="name" content="The Moonlight - Quán Cà Phê Nha Trang">
+<meta itemprop="description" content="Khám phá thế giới hương vị đặc biệt tại The Moonlight, nơi chúng tôi mang đến những sản phẩm thức uống phong phú, bao gồm cà phê muối, trà sữa đa dạng và nhiều thức uống khác, tất cả hòa quyện trong không gian ấm cúng.">
 <meta itemprop="image" content="{{asset('images/thumb.jpg')}}?t=@php echo time() @endphp">
+<meta itemprop="keywords" content="Quán cà phê Nha Trang, cà phê muối, trà sữa, thức uống Nha Trang, không gian cà phê ấm cúng">
 
 <meta property="og:url" content="https://cafenhatrang.fun">
 <meta property="og:type" content="website">

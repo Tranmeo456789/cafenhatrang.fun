@@ -15,7 +15,7 @@ class PostModel extends BackEndModel
         $this->table               = 'post';
         $this->controllerName      = 'post';
         $this->folderUpload        = 'post';
-        $this->crudNotAccepted     = ['_token', 'btn_save','file-del','file'];
+        $this->crudNotAccepted     = ['_token', 'btn_save','file-del','file','files'];
     }
    
     // public function scopeOfUser($query)
