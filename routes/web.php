@@ -50,7 +50,7 @@ Route::post('kiem-tra-thong-tin-so-dien-thoai',[OrderController::class,'searchPh
 Route::get('loc-don-hang-ajax/theo-trang-thai',[OrderController::class,'ajaxFliter'])->name('order.ajaxFliter');
 Route::get('xem-don-hang-chi-tiet-ajax/theo-so-dien-thoai',[OrderController::class,'detail'])->name('order.detail');
 Route::post('OrderSuccess',[OrderController::class,'OrderSuccess'])->name('OrderSuccess');
-Route::get('dat-hang-thanh-cong/{id}',[OrderController::class,'viewOrderSuccess'])->name('order.success');
+Route::get('dat-hang-thanh-cong/{codeOrder}',[OrderController::class,'viewOrderSuccess'])->name('order.success');
 
 Route::get('san-pham-{slug}',[ProductController::class,'list_product'])->name('cat0.product');
 Route::get('chi-tiet-san-pham/{slug}',[ProductController::class, 'detail'])->name('frontend.product.detail');

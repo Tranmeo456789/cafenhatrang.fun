@@ -102,6 +102,7 @@ class OrderController extends Controller
             $params['total_product']+=$itemCart->qty;
         }
         $params['total']+=$params['value_fee_ship'];
+        $params['code_order'] = 'DHTD' . date('YmdHis') . sprintf("%02d", rand(0, 99));
         $province=(new ProvinceModel)->getItem(['id'=>$params['province_id']],['task'=>'get-item-full']);
         $district=(new DistrictModel)->getItem(['id'=>$params['district_id']],['task'=>'get-item-full']);
         $ward=(new WardModel)->getItem(['id'=>$params['ward_id']],['task'=>'get-item-full']);
@@ -111,17 +112,15 @@ class OrderController extends Controller
         $params['buyer']['email']=$params['email'];
         $params['buyer']['address']=$params['address'].', '.$ward['name'].', '.$district['name'].', '.$province['name'];
         (new OrderModel)->saveItem($params,['task'=>'frontend-save-item']);
-        $OrderLast=OrderModel::latest('id')->first();
-        (new OrderModel)->saveItem(['id' => $OrderLast->id],['task'=>'frontend-save-code-order']);
-        $OrderLast=OrderModel::latest('id')->first();
+        $orderCurrent=(new OrderModel)->getItem(['code_order'=>$params['code_order']],['task'=>'get-item-frontend-code']);
         $data=[
-            'code_order' => $OrderLast['code_order'],
-            'fullname'=>$OrderLast['buyer']['fullname'],
-            'email'=>$OrderLast['buyer']['email'],
-            'address'=>$OrderLast['buyer']['address'],
-            'phone'=>$OrderLast['buyer']['phone'],
-            'note'=>$OrderLast['note'],
-            'payments'=>$OrderLast['delivery_method'],
+            'code_order' => $params['code_order'],
+            'fullname'=>$orderCurrent['buyer']['fullname'],
+            'email'=>$orderCurrent['buyer']['email'],
+            'address'=>$orderCurrent['buyer']['address'],
+            'phone'=>$orderCurrent['buyer']['phone'],
+            'note'=>$orderCurrent['note'],
+            'payments'=>$orderCurrent['delivery_method'],
         ];
         if($request->input('email')){
             Mail::to($request->input('email'))->send(new MailOrder( $data));
@@ -131,11 +130,11 @@ class OrderController extends Controller
         dispatch($emailJob);
         return response()->json([
             'status' => 'success',
-            'redirect_url' => route('order.success', ['id' => $OrderLast['id']]),
+            'redirect_url' => route('order.success', ['codeOrder' => $orderCurrent['code_order']]),
         ],200);
     }
-    function viewOrderSuccess($id){
-        $order=(new OrderModel)->getItem(['id'=>$id],['task'=>'get-item-frontend']);
+    function viewOrderSuccess($codeOrder){
+        $order=(new OrderModel)->getItem(['code_order'=>$codeOrder],['task'=>'get-item-frontend-code']);
         Cart::destroy();
         $data='';
         return view('client.order.orderSuccess',compact('order'));

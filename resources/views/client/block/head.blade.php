@@ -23,8 +23,11 @@
 <!-- CSRF Token -->
 <meta name="csrf-token" content="{{ csrf_token() }}">
 
-<title>The moonlight</title>
+<title>The Moonlight - Quán Cà Phê Nha Trang</title>
 <meta name="description" content="Sản phẩm thức uống bao gồm: cafe muối, trà sữa các loại và một số thức uống khác ... ">
+
+<link rel="icon" href="{{ asset('images/favicon.ico')}}?t=@php echo time() @endphp" type="image/ico"/>
+
 
 <link href="{{asset('css/bootstrap/bootstrap.min.css')}}?t=@php echo time() @endphp" rel="stylesheet" type="text/css"/>
 <!-- <link href="{{asset('css/reset.css')}}?t=@php echo time() @endphp" rel="stylesheet" type="text/css" /> -->

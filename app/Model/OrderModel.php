@@ -123,14 +123,12 @@ class OrderModel extends BackEndModel
                             ->first()->toArray();
         }
         if ($options['task'] == 'get-item-frontend-code') {
-            $result = self::select('id','code_order','total','value_fee_ship','created_at','status_order','user_id','delivery_method','receive',
-                            'info_product','buyer','pharmacy','total_product','delivery_service','code_service')
+            $result = self::select('id','code_order','total_product','total','value_fee_ship','info_product','user_id','buyer','status_order','created_at')
                             ->where('code_order', $params['code_order'])
                             ->first();
         }
         if ($options['task'] == 'get-item') {
-            $result = self::select('id','code_order','total','value_fee_ship','created_at','status_order','user_id','buyer',
-                            'info_product','pharmacy','total_product','delivery_service','code_service')
+            $result = self::select('id','code_order','total_product','total','value_fee_ship','info_product','user_id','buyer','status_order','created_at')
                             ->where('id', $params['id'])
                             ->first();
 
@@ -197,17 +195,6 @@ class OrderModel extends BackEndModel
         if ($options['task'] == 'frontend-save-item'){
             DB::beginTransaction();
             try {
-
-                //$params['invoice'] = isset($params['export_tax'])?json_encode($params['invoice']) :null;
-                // if ($params['delivery_method'] == 1){ //Nhận hàng tại nhà thuốc
-                //     $params['pharmacy'] = json_encode($params['pharmacy']);
-                //     $params['receive'] = null;
-                // }else{
-                //     $params['pharmacy'] = null;
-                //     $params['receive'] = json_encode($params['receive']);
-                // }
-                //$cart = \Session::get('cart');
-                //$params['info_product'] = $cart[$params['user_sell']]['product'];
                 $this->setCreatedHistory($params);
                 $params['buyer'] = json_encode($params['buyer']);
                 $params['info_product'] = json_encode($params['info_product']);
@@ -218,19 +205,9 @@ class OrderModel extends BackEndModel
                     'type' => 'order',
                     'value' => date('Ymd')
                 ];
-                $params['code_order'] ='DHTD' . date('Ymd') . sprintf("%05d",'123');
-                self::insert($this->prepareParams($params));
+                //$params['code_order'] ='DHTD' . date('Ymd') . sprintf("%05d",'123');
 
-                //Cập nhật khách hàng
-                // $customer = CustomerShopModel::where('user_id',$params['user_id'])
-                //                             ->where('user_sell',$params['user_sell'])
-                //                             ->first();
-                // if (empty($customer)){
-                //     CustomerShopModel::insert([
-                //         'user_id' => $params['user_id'],
-                //         'user_sell' => $params['user_sell']
-                //     ]);
-                // }
+                self::insert($this->prepareParams($params));
                 
                 DB::commit();
                 return true;
@@ -241,11 +218,11 @@ class OrderModel extends BackEndModel
             }
 
         }
-        if ($options['task'] == 'frontend-save-code-order'){
+        // if ($options['task'] == 'frontend-save-code-order'){
             
-            $params['code_order'] ='DHTD' . date('Ymd') . sprintf("%05d",$params['id']);
-            self::where('id', $params['id'])->update($this->prepareParams($params));
-         }
+        //     $params['code_order'] ='DHTD' . date('Ymd') . sprintf("%05d",$params['id']);
+        //     self::where('id', $params['id'])->update($this->prepareParams($params));
+        //  }
         if ($options['task'] == 'api-save-item'){
             DB::beginTransaction();
             try {
