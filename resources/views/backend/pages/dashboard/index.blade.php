@@ -1,5 +1,5 @@
 @extends('layouts.backend')
-@section('title','Quản lý store thức')
+@section('title','Quản lý cafe')
 
 @section('content')
 @php
