@@ -11,7 +11,8 @@ use DB;
 class ProductModel extends BackEndModel
 {
     protected $casts = [
-        'tick'   => 'array'
+        'tick'   => 'array',
+        'list_units'=>'array'
     ];
     public function __construct()
     {
@@ -39,7 +40,7 @@ class ProductModel extends BackEndModel
        // $user = Session::get('user');
         if ($options['task'] == "user-list-items") {
             $query = $this::with('unitProduct')
-                            ->select('id','name','thumbnail','price','quantity_in_stock','promotion','unit_id','describe','content','status_product','slug','cat_id','image','created_at', 'updated_at')->where('id','>=',1);
+                            ->select('id','name','thumbnail','price','quantity_in_stock','promotion','unit_id','list_units','describe','content','status_product','slug','cat_id','image','created_at', 'updated_at')->where('id','>=',1);
             
             if ((isset($params['filter']['status_product'])) && ($params['filter']['status_product'] != 'all')) {
                 $query = $query->where('status_product',$params['filter']['status_product']);
@@ -74,7 +75,7 @@ class ProductModel extends BackEndModel
                                     ->toArray();
         }
         if ($options['task'] == "frontend-list-items") {
-            $query = $this::with('unitProduct')->select('id','name','thumbnail','price','quantity_in_stock','promotion','unit_id','describe','content','status_product','slug','cat_id','image','created_at', 'updated_at')
+            $query = $this::with('unitProduct')->select('id','name','thumbnail','price','quantity_in_stock','promotion','unit_id','list_units','describe','content','status_product','slug','cat_id','image','created_at', 'updated_at')
                                 ->where('id','>=',1)->where('status_product','con_hang');
             if (isset($params['cat_id'])){
                 $query->where('cat_id', $params['cat_id']);
@@ -116,7 +117,7 @@ class ProductModel extends BackEndModel
             $result = $query->pluck('name', 'id')->toArray();
         }
         if($options['task'] == "list-items-search") {
-            $query = $this::with('unitProduct')->select('id','name','thumbnail','price','quantity_in_stock','promotion','unit_id','describe','content','status_product','slug','cat_id','image','created_at', 'updated_at');
+            $query = $this::with('unitProduct')->select('id','name','thumbnail','price','quantity_in_stock','promotion','unit_id','list_units','describe','content','status_product','slug','cat_id','image','created_at', 'updated_at');
             if(isset($params['keyword'])){
                 $query->where('name','LIKE', "%{$params['keyword']}%");
             }
@@ -135,24 +136,24 @@ class ProductModel extends BackEndModel
     {
         $result = null;
         if ($options['task'] == 'get-item') {
-            $result = self::select('id','name','thumbnail','albumImage','albumImageHash','price','quantity_in_stock','promotion','unit_id','describe','content','status_product','slug','cat_id','image','created_at', 'updated_at')
+            $result = self::select('id','name','thumbnail','albumImage','albumImageHash','price','quantity_in_stock','promotion','unit_id','list_units','describe','content','status_product','slug','cat_id','image','created_at', 'updated_at')
                             ->where('id', $params['id'])
                             ->first();
         }
         if ($options['task'] == 'get-item-in-slug') {
-            $result = self::select('id','name','thumbnail','albumImage','albumImageHash','price','quantity_in_stock','promotion','unit_id','describe','content','status_product','slug','cat_id','image','created_at', 'updated_at')
+            $result = self::select('id','name','thumbnail','albumImage','albumImageHash','price','quantity_in_stock','promotion','unit_id','list_units','describe','content','status_product','slug','cat_id','image','created_at', 'updated_at')
                             ->where('slug', $params['slug'])
                             ->first();
         }
         if ($options['task'] == 'get-item-simple') {
-            $result = self::with('unitProduct')->select('id','name','unit_id','price','quantity_in_stock','promotion')
+            $result = self::with('unitProduct')->select('id','name','unit_id','list_units','price','quantity_in_stock','promotion')
                             ->where('id', $params['id'])
                             ->first();
         }
 
         if ($options['task'] == 'frontend-get-item') {
             $result = self::with('unitProduct')
-                            ->select('id','name','thumbnail','albumImage','albumImageHash','price','quantity_in_stock','promotion','unit_id','describe','content','status_product','slug','cat_id','image','created_at', 'updated_at')
+                            ->select('id','name','thumbnail','albumImage','albumImageHash','price','quantity_in_stock','promotion','unit_id','list_units','describe','content','status_product','slug','cat_id','image','created_at', 'updated_at')
                             ->where('id', $params['id'])
                             ->first();
         }
@@ -172,6 +173,17 @@ class ProductModel extends BackEndModel
                 $params['albumImage']   = $resultFileUpload['fileAttach'];
                 $params['albumImageHash']     = $resultFileUpload['fileHash'];
             }
+            $list_units = $params['list_units'];
+            $arrUnit = [];
+            foreach($list_units['name_unit'] as $key=>$val){
+                $arrUnit[$key] = [
+                    'name_unit' => $list_units['name_unit'][$key],
+                    'exchange_value' => $list_units['exchange_value'][$key],
+                    'price' => $list_units['price'][$key],
+                ];
+            }
+            $list_units = $arrUnit;
+            $params['list_units'] = json_encode($arrUnit);
             $id = self::insertGetId($this->prepareParams($params));
             $wareHouseIDs = (new WarehouseModel())->listItems(null,['task' =>'user-list-all-items']);
             self::find($id)->warehouse()->attach($wareHouseIDs);
@@ -187,6 +199,17 @@ class ProductModel extends BackEndModel
             // if ($catProduct){
             //     $params['cat_product_parent_id'] = $catProduct->parent_id;
             // }
+            $list_units = $params['list_units'];
+            $arrUnit = [];
+            foreach($list_units['name_unit'] as $key=>$val){
+                $arrUnit[$key] = [
+                    'name_unit' => $list_units['name_unit'][$key],
+                    'exchange_value' => $list_units['exchange_value'][$key],
+                    'price' => $list_units['price'][$key],
+                ];
+            }
+            $list_units = $arrUnit;
+            $params['list_units'] = json_encode($arrUnit);
             self::where('id', $params['id'])->update($this->prepareParams($params));
         }
         if($options['task'] == 'update-status-item-of-admin'){

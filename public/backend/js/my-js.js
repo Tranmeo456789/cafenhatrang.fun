@@ -268,6 +268,9 @@ $(document).on('click', ".btn-add-row", function(event) {
     $('.select2').select2();
     $(rowNew).find('.select2').val('null').trigger("change");
 });
+$(document).on('click', ".btn-add-row-unit", function(event) {
+    $(rowNew).find("input").val('');
+});
 $(document).on('click', '.btn-delete-row', function() {
     if ($('.row-detail').length <= 1) {
         return false;

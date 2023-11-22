@@ -79,7 +79,7 @@
                 'cat_id' => 'Danh mục',
                 'user_type_id' => 'Đối tượng',
                 'price' => 'Giá bán',
-                'unit_id' => 'Đơn vị',
+                'unit_id' => 'Đơn vị cơ bản',
                 'thumbnail'=>'Chọn ảnh đại diện cho sản phẩm',
                 'status'=>'Trạng thái sản phẩm',
                 'content' =>'Thông tin chung',

@@ -32,28 +32,93 @@ $elements = [
             'label' => HTML::decode(Form::label('cat_id', $label['cat_id'].':' . $star , $formLabelAttr)),
             'element' => Form::select('cat_id',$itemsCatProduct, $item['cat_id']??null, array_merge($formSelect2Attr,['style' =>'width:100%'])),
             'widthElement' => 'col-md-6 col-12'
-        ],[
-        'label' => HTML::decode(Form::label('unit_id', $label['unit_id'].':' . $star , $formLabelAttr)),
-        'element' => Form::select('unit_id',$itemsUnit, $item['unit_id']??null, array_merge($formSelect2Attr,['style' =>'width:100%'])),
-        'widthElement' => 'col-md-6 col-12'
         ],
+        [
+        'label' => HTML::decode(Form::label('promotion',$label['promotion'].':' . $star, $formLabelAttr)),
+        'element' => Form::text('promotion', $item['promotion']??0, array_merge($formInputAttr,['placeholder'=>$label['promotion']])),
+        'widthElement' => 'col-md-6 col-12'
+        ] 
     ];
 
     $elements = array_merge($elements,
     [
         [
-        'label' => HTML::decode(Form::label('price',$label['price'].':' . $star, $formLabelAttr)),
+        'label' => HTML::decode(Form::label('unit_id', 'Đơn vị cơ sở:' . $star , $formLabelAttr)),
+        'element' => Form::select('unit_id',$itemsUnit, $item['unit_id']??null, array_merge($formSelect2Attr,['style' =>'width:100%'])),
+        'widthElement' => 'col-md-6 col-12'
+        ],
+        [
+        'label' => HTML::decode(Form::label('price','Giá bán cơ sở:' . $star, $formLabelAttr)),
         'element' => Form::text('price', $item['price']??null, array_merge($formInputAttr,['placeholder'=>$label['price']])),
         'widthElement' => 'col-md-6 col-12'
-        ],[
-        'label' => HTML::decode(Form::label('promotion',$label['promotion'].':' . $star, $formLabelAttr)),
-        'element' => Form::text('promotion', $item['promotion']??0, array_merge($formInputAttr,['placeholder'=>$label['promotion']])),
-        'widthElement' => 'col-md-6 col-12'
-        ]       
+        ],
     ]);
+    $elementsLabelUnitAdd = [
+        [
+            'label'   => HTML::decode(Form::label('', 'Đơn vị tính', $formLabelAttr)),
+            'element' => '',
+            'widthElement' => 'col-3 text-center'
+        ],[
+            'label'   => HTML::decode(Form::label('', 'Giá trị quy đổi', $formLabelAttr)),
+            'element' => '',
+            'widthElement' => 'col-3 text-center'
+        ],[
+            'label'   => HTML::decode(Form::label('', 'Giá bán', $formLabelAttr)),
+            'element' => '',
+            'widthElement' => 'col-3 text-center'
+        ]
+    ];
+    if (isset($item['list_units']) && (count($item['list_units']) > 0)){
+        foreach($item['list_units'] as $val){
+            $elementsDetailsUnitAdd[] = [
+                    [
+                    'label' => '',
+                    'element' => Form::text('list_units[name_unit][]', $val['name_unit'], array_merge($formInputAttr,['placeholder'=>'Tên đơn vị tính'])),
+                    'widthElement' => 'col-3 text-center'
+                    ],[
+                        'label' => '',
+                        'element' => Form::text('list_units[exchange_value][]', $val['exchange_value'], array_merge($formInputAttr,['placeholder'=>'Giá trị quy đổi'])),
+                        'widthElement' => 'col-3 text-center'
+                    ],
+                    [
+                        'label' => '',
+                        'element' => Form::text('list_units[price][]', $val['price'], array_merge($formInputAttr,['placeholder'=>'Giá bán'])),
+                        'widthElement' => 'col-3 text-center'
+                    ],
+                    [
+                            'label'   => '',
+                            'element' => Form::button("<i class='fa fa-plus'></i>",['class'=>'btn btn-sm btn-primary btn-add-row btn-add-row-unit']) . " " . Form::button("<i class='fa fa-times'></i>",['class'=>'btn btn-sm btn-danger btn-delete-row']),
+                            'widthElement' => 'col-1 text-right'
+                        ]
+            ];
+        }
+    }else{
+        $elementsDetailsUnitAdd[] = [
+        [
+        'label' => '',
+        'element' => Form::text('list_units[name_unit][]', '', array_merge($formInputAttr,['placeholder'=>'Tên đơn vị tính'])),
+        'widthElement' => 'col-3 text-center'
+        ],[
+            'label' => '',
+            'element' => Form::text('list_units[exchange_value][]', 1, array_merge($formInputAttr,['placeholder'=>'Giá trị quy đổi'])),
+            'widthElement' => 'col-3 text-center'
+        ],
+        [
+            'label' => '',
+            'element' => Form::text('list_units[price][]', 0, array_merge($formInputAttr,['placeholder'=>'Giá bán'])),
+            'widthElement' => 'col-3 text-center'
+        ],
+        [
+                'label'   => '',
+                'element' => Form::button("<i class='fa fa-plus'></i>",['class'=>'btn btn-sm btn-primary btn-add-row btn-add-row-unit']) . " " . Form::button("<i class='fa fa-times'></i>",['class'=>'btn btn-sm btn-danger btn-delete-row']),
+                'widthElement' => 'col-1 text-right'
+            ]
+        ];
+    }
+    
     $arrStatusProduct = config('myconfig.template.status_product');
     foreach($arrStatusProduct as $key => $val){
-            $elements[] = [
+            $elementsAfter[] = [
             'label' => Form::label('name', $val, $formLabelAttr),
             'element' => Form::radio('status_product', $key, $key=='con_hang'?'true':'' ,array_merge($formInputAttr)),
             'type' =>'inline-text-right',
@@ -61,7 +126,7 @@ $elements = [
             'styleFormGroup' => 'mb-2 h-35 label-radio',
         ];
     }
-    $elements = array_merge($elements,
+    $elementsAfter = array_merge($elementsAfter,
     [
         [
             'label' => '',
@@ -122,6 +187,21 @@ $title = (!isset($item['id']) || $item['id'] == '') ?'Thêm mới':'Sửa thông
                             'id'             => 'main-form' ])  }}
                 <div class="row">
                     {!! FormTemplate::show($elements,$formInputWidth) !!}
+                    <div class="col-12 mt-3 mb-2">
+                        <span class="btn-add-unit">+ Thêm đơn vị tính sản phẩm này</span>
+                    </div>
+                    <div class="list-unit-price col-12 mb-3"> 
+                        <div class="row">
+                            {!! FormTemplate::show($elementsLabelUnitAdd ,$formInputWidth) !!}
+                        </div>
+                        @foreach($elementsDetailsUnitAdd as $element)
+                        <div class="row row-detail">
+                            {!! FormTemplate::show($element,$formInputWidth)  !!}
+                        </div>
+                     @endforeach
+                    </div>
+                    {!! FormTemplate::show($elementsAfter,$formInputWidth) !!}
+                    
                 </div>
                 {{ Form::close() }}
             </div>
