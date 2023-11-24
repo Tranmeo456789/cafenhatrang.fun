@@ -199,17 +199,23 @@ class ProductModel extends BackEndModel
             // if ($catProduct){
             //     $params['cat_product_parent_id'] = $catProduct->parent_id;
             // }
-            $list_units = $params['list_units'];
-            $arrUnit = [];
-            foreach($list_units['name_unit'] as $key=>$val){
-                $arrUnit[$key] = [
-                    'name_unit' => $list_units['name_unit'][$key],
-                    'exchange_value' => $list_units['exchange_value'][$key],
-                    'price' => $list_units['price'][$key],
-                ];
+            
+            if(isset($params['list_units'])){
+                $list_units = $params['list_units'];
+                $arrUnit = [];
+                foreach($list_units['name_unit'] as $key=>$val){
+                    $arrUnit[$key] = [
+                        'name_unit' => $list_units['name_unit'][$key],
+                        'exchange_value' => $list_units['exchange_value'][$key],
+                        'price' => $list_units['price'][$key],
+                    ];
+                }
+                $list_units = $arrUnit;
+                $params['list_units'] = json_encode($arrUnit);
+            }else{
+                $params['list_units']=null;
             }
-            $list_units = $arrUnit;
-            $params['list_units'] = json_encode($arrUnit);
+            
             self::where('id', $params['id'])->update($this->prepareParams($params));
         }
         if($options['task'] == 'update-status-item-of-admin'){

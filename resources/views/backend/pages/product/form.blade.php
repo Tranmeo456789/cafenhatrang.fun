@@ -53,21 +53,6 @@ $elements = [
         'widthElement' => 'col-md-6 col-12'
         ],
     ]);
-    $elementsLabelUnitAdd = [
-        [
-            'label'   => HTML::decode(Form::label('', 'Đơn vị tính', $formLabelAttr)),
-            'element' => '',
-            'widthElement' => 'col-3 text-center'
-        ],[
-            'label'   => HTML::decode(Form::label('', 'Giá trị quy đổi', $formLabelAttr)),
-            'element' => '',
-            'widthElement' => 'col-3 text-center'
-        ],[
-            'label'   => HTML::decode(Form::label('', 'Giá bán', $formLabelAttr)),
-            'element' => '',
-            'widthElement' => 'col-3 text-center'
-        ]
-    ];
     if (isset($item['list_units']) && (count($item['list_units']) > 0)){
         foreach($item['list_units'] as $val){
             $elementsDetailsUnitAdd[] = [
@@ -86,34 +71,12 @@ $elements = [
                         'widthElement' => 'col-3 text-center'
                     ],
                     [
-                            'label'   => '',
-                            'element' => Form::button("<i class='fa fa-plus'></i>",['class'=>'btn btn-sm btn-primary btn-add-row btn-add-row-unit']) . " " . Form::button("<i class='fa fa-times'></i>",['class'=>'btn btn-sm btn-danger btn-delete-row']),
-                            'widthElement' => 'col-1 text-right'
-                        ]
+                        'label'   => '',
+                        'element' =>  Form::button("<i class='fa fa-times'></i>",['class'=>'btn btn-sm btn-danger btn-delete-row-first','title'=>'Xóa']),
+                        'widthElement' => 'col-1 text-right'
+                    ]
             ];
         }
-    }else{
-        $elementsDetailsUnitAdd[] = [
-        [
-        'label' => '',
-        'element' => Form::text('list_units[name_unit][]', '', array_merge($formInputAttr,['placeholder'=>'Tên đơn vị tính'])),
-        'widthElement' => 'col-3 text-center'
-        ],[
-            'label' => '',
-            'element' => Form::text('list_units[exchange_value][]', 1, array_merge($formInputAttr,['placeholder'=>'Giá trị quy đổi'])),
-            'widthElement' => 'col-3 text-center'
-        ],
-        [
-            'label' => '',
-            'element' => Form::text('list_units[price][]', 0, array_merge($formInputAttr,['placeholder'=>'Giá bán'])),
-            'widthElement' => 'col-3 text-center'
-        ],
-        [
-                'label'   => '',
-                'element' => Form::button("<i class='fa fa-plus'></i>",['class'=>'btn btn-sm btn-primary btn-add-row btn-add-row-unit']) . " " . Form::button("<i class='fa fa-times'></i>",['class'=>'btn btn-sm btn-danger btn-delete-row']),
-                'widthElement' => 'col-1 text-right'
-            ]
-        ];
     }
     
     $arrStatusProduct = config('myconfig.template.status_product');
@@ -190,15 +153,14 @@ $title = (!isset($item['id']) || $item['id'] == '') ?'Thêm mới':'Sửa thông
                     <div class="col-12 mt-3 mb-2">
                         <span class="btn-add-unit">+ Thêm đơn vị tính sản phẩm này</span>
                     </div>
-                    <div class="list-unit-price col-12 mb-3"> 
-                        <div class="row">
-                            {!! FormTemplate::show($elementsLabelUnitAdd ,$formInputWidth) !!}
-                        </div>
-                        @foreach($elementsDetailsUnitAdd as $element)
-                        <div class="row row-detail">
-                            {!! FormTemplate::show($element,$formInputWidth)  !!}
-                        </div>
-                     @endforeach
+                    <div id="list-unit-price" class="col-12 mb-3"> 
+                        @if(isset($item['list_units']) && (count($item['list_units']) > 0))
+                            @foreach($elementsDetailsUnitAdd as $element)
+                                <div class="row row-detail">
+                                    {!! FormTemplate::show($element,$formInputWidth)  !!}
+                                </div>
+                            @endforeach
+                        @endif
                     </div>
                     {!! FormTemplate::show($elementsAfter,$formInputWidth) !!}
                     

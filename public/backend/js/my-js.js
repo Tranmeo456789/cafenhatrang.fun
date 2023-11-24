@@ -277,6 +277,9 @@ $(document).on('click', '.btn-delete-row', function() {
     }
     $(this).closest('.row-detail').remove();
 });
+$(document).on('click', '.btn-delete-row-first', function() {
+    $(this).closest('.row-detail').remove();
+});
 $(document).on('click', "#btnDeleteFile", function(event) {
     if ($("input[name='file-del']").length) {
         if ($("input[name='file-del']").val() != '') {
@@ -536,5 +539,51 @@ fetch('get-chart-data')
         accessibility: {
             enabled: true // Hoặc false nếu bạn muốn tắt module
         }
+    });
+});
+document.addEventListener('DOMContentLoaded', function () {
+    var addButton = document.querySelector('.btn-add-unit');
+    addButton.addEventListener('click', function () {
+        // Tạo một đối tượng div
+        var newDiv = document.createElement('div');
+        newDiv.className = 'row row-detail';
+        newDiv.innerHTML = `
+                <div class="col-3 text-center">
+                    <div class="form-group row">
+                        <div class="col-12">
+                            <input class="form-control" placeholder="Tên đơn vị tính" name="list_units[name_unit][]" type="text" value="">
+                            <span class="help-block"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3 text-center">
+                    <div class="form-group row">
+                        <div class="col-12">
+                            <input class="form-control" placeholder="Giá trị quy đổi" name="list_units[exchange_value][]" type="text" value="">
+                            <span class="help-block"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3 text-center">
+                    <div class="form-group row">
+                        <div class="col-12">
+                            <input class="form-control" placeholder="Giá bán" name="list_units[price][]" type="text" value="">
+                            <span class="help-block"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-1 text-right">
+                    <div class="form-group row">
+                        <div class="col-12">
+                            <button class="btn btn-sm btn-danger btn-delete-row-first" type="button" title='Xóa'><i class="fa fa-times"></i></button>
+                            <span class="help-block"></span>
+                        </div>
+                    </div>
+                </div>
+        `;
+
+        // Lấy phần tử có id là "app" và thêm đối tượng div mới vào đó
+        var appContainer = document.getElementById('list-unit-price');
+        appContainer.appendChild(newDiv);
     });
 });
