@@ -78,7 +78,49 @@ $elements = [
             ];
         }
     }
-    
+    if (isset($item['list_propertys']) && (count($item['list_propertys']) > 0)){
+        foreach($item['list_propertys'] as $key=>$val){
+            $elementsDetailsProperty[] = [
+                    [
+                    'label' => '',
+                    'element' => Form::text('list_propertys['.$key.'][name_property]', $val['name_property'], array_merge($formInputAttr,['placeholder'=>'Tên thuộc tính'])),
+                    'widthElement' => 'col-3 text-center'
+                    ],
+                    [
+                        'label'   => '',
+                        'element' => Form::button("<i class='fa fa-plus'></i>",['class'=>'btn btn-sm btn-primary btn-add-row-property']) . " " .   Form::button("<i class='fa fa-times'></i>",['class'=>'btn btn-sm btn-danger btn-delete-row-first','title'=>'Xóa']),
+                        'widthElement' => 'col-1 text-right'
+                    ],
+                    [
+                        'label'   => '',
+                        'element' => '',
+                        'widthElement' => 'col-8'
+                    ]
+            ];
+            $arrElementsProperty=$val['elements'];
+            $elementsDetailElementProperty=[];
+            foreach($arrElementsProperty as $k=>$v){
+                $elementsDetailElementProperty[]=[
+                    [
+                    'label' => '',
+                    'element' => '',
+                    'widthElement' => 'col-1'
+                    ],
+                    [
+                    'label' => '',
+                    'element' => Form::text('list_propertys['.$key.'][name_element][]', $v['name_element'], array_merge($formInputAttr,['placeholder'=>'Tên thành phần'])),
+                    'widthElement' => 'col-3 text-center'
+                    ],
+                    [
+                        'label'   => '',
+                        'element' =>  Form::button("<i class='fa fa-times'></i>",['class'=>'btn btn-sm btn-danger btn-delete-row-first','title'=>'Xóa']),
+                        'widthElement' => 'col-1 text-right'
+                    ]
+                ];
+            }
+            $elementsDetailsProperty=array_merge($elementsDetailsProperty,$elementsDetailElementProperty);
+        }
+    }
     $arrStatusProduct = config('myconfig.template.status_product');
     foreach($arrStatusProduct as $key => $val){
             $elementsAfter[] = [
@@ -151,12 +193,24 @@ $title = (!isset($item['id']) || $item['id'] == '') ?'Thêm mới':'Sửa thông
                 <div class="row">
                     {!! FormTemplate::show($elements,$formInputWidth) !!}
                     <div class="col-12 mt-3 mb-2">
-                        <span class="btn-add-unit">+ Thêm đơn vị tính sản phẩm này</span>
+                        <span class="btn-add-normal btn-add-unit">+ Thêm đơn vị tính sản phẩm này</span>
                     </div>
                     <div id="list-unit-price" class="col-12 mb-3"> 
                         @if(isset($item['list_units']) && (count($item['list_units']) > 0))
                             @foreach($elementsDetailsUnitAdd as $element)
                                 <div class="row row-detail">
+                                    {!! FormTemplate::show($element,$formInputWidth)  !!}
+                                </div>
+                            @endforeach
+                        @endif
+                    </div>
+                    <div class="col-12 mt-3 mb-3">
+                        <span class="btn-add-normal btn-add-classify">+ Thêm phân loại sản phẩm</span>
+                    </div>
+                    <div id="list-classify" class="col-12 mb-3"> 
+                        @if(isset($item['list_propertys']) && (count($item['list_propertys']) > 0))
+                            @foreach($elementsDetailsProperty as $element)
+                                <div class="row row-detail list-property mb-3">
                                     {!! FormTemplate::show($element,$formInputWidth)  !!}
                                 </div>
                             @endforeach

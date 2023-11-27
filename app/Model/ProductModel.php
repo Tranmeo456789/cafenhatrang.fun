@@ -12,7 +12,9 @@ class ProductModel extends BackEndModel
 {
     protected $casts = [
         'tick'   => 'array',
-        'list_units'=>'array'
+        'list_units'=>'array',
+        'list_propertys'=>'array',
+        'list_property_details'=>'array'
     ];
     public function __construct()
     {
@@ -40,7 +42,7 @@ class ProductModel extends BackEndModel
        // $user = Session::get('user');
         if ($options['task'] == "user-list-items") {
             $query = $this::with('unitProduct')
-                            ->select('id','name','thumbnail','price','quantity_in_stock','promotion','unit_id','list_units','describe','content','status_product','slug','cat_id','image','created_at', 'updated_at')->where('id','>=',1);
+                            ->select('id','name','thumbnail','price','quantity_in_stock','promotion','unit_id','list_units','list_propertys','list_property_details','describe','content','status_product','slug','cat_id','image','created_at', 'updated_at')->where('id','>=',1);
             
             if ((isset($params['filter']['status_product'])) && ($params['filter']['status_product'] != 'all')) {
                 $query = $query->where('status_product',$params['filter']['status_product']);
@@ -75,7 +77,7 @@ class ProductModel extends BackEndModel
                                     ->toArray();
         }
         if ($options['task'] == "frontend-list-items") {
-            $query = $this::with('unitProduct')->select('id','name','thumbnail','price','quantity_in_stock','promotion','unit_id','list_units','describe','content','status_product','slug','cat_id','image','created_at', 'updated_at')
+            $query = $this::with('unitProduct')->select('id','name','thumbnail','price','quantity_in_stock','promotion','unit_id','list_units','list_propertys','list_property_details','describe','content','status_product','slug','cat_id','image','created_at', 'updated_at')
                                 ->where('id','>=',1)->where('status_product','con_hang');
             if (isset($params['cat_id'])){
                 $query->where('cat_id', $params['cat_id']);
@@ -117,7 +119,7 @@ class ProductModel extends BackEndModel
             $result = $query->pluck('name', 'id')->toArray();
         }
         if($options['task'] == "list-items-search") {
-            $query = $this::with('unitProduct')->select('id','name','thumbnail','price','quantity_in_stock','promotion','unit_id','list_units','describe','content','status_product','slug','cat_id','image','created_at', 'updated_at');
+            $query = $this::with('unitProduct')->select('id','name','thumbnail','price','quantity_in_stock','promotion','unit_id','list_units','list_propertys','list_property_details','describe','content','status_product','slug','cat_id','image','created_at', 'updated_at');
             if(isset($params['keyword'])){
                 $query->where('name','LIKE', "%{$params['keyword']}%");
             }
@@ -136,12 +138,12 @@ class ProductModel extends BackEndModel
     {
         $result = null;
         if ($options['task'] == 'get-item') {
-            $result = self::select('id','name','thumbnail','albumImage','albumImageHash','price','quantity_in_stock','promotion','unit_id','list_units','describe','content','status_product','slug','cat_id','image','created_at', 'updated_at')
+            $result = self::select('id','name','thumbnail','albumImage','albumImageHash','price','quantity_in_stock','promotion','unit_id','list_units','list_propertys','list_property_details','describe','content','status_product','slug','cat_id','image','created_at', 'updated_at')
                             ->where('id', $params['id'])
                             ->first();
         }
         if ($options['task'] == 'get-item-in-slug') {
-            $result = self::select('id','name','thumbnail','albumImage','albumImageHash','price','quantity_in_stock','promotion','unit_id','list_units','describe','content','status_product','slug','cat_id','image','created_at', 'updated_at')
+            $result = self::select('id','name','thumbnail','albumImage','albumImageHash','price','quantity_in_stock','promotion','unit_id','list_units','list_propertys','list_property_details','describe','content','status_product','slug','cat_id','image','created_at', 'updated_at')
                             ->where('slug', $params['slug'])
                             ->first();
         }
@@ -153,7 +155,7 @@ class ProductModel extends BackEndModel
 
         if ($options['task'] == 'frontend-get-item') {
             $result = self::with('unitProduct')
-                            ->select('id','name','thumbnail','albumImage','albumImageHash','price','quantity_in_stock','promotion','unit_id','list_units','describe','content','status_product','slug','cat_id','image','created_at', 'updated_at')
+                            ->select('id','name','thumbnail','albumImage','albumImageHash','price','quantity_in_stock','promotion','unit_id','list_units','list_propertys','list_property_details','describe','content','status_product','slug','cat_id','image','created_at', 'updated_at')
                             ->where('id', $params['id'])
                             ->first();
         }
@@ -184,6 +186,26 @@ class ProductModel extends BackEndModel
             }
             $list_units = $arrUnit;
             $params['list_units'] = json_encode($arrUnit);
+            if(isset($params['list_propertys'])){
+                $list_propertys = $params['list_propertys'];
+                $arrProperty = [];
+                foreach($list_propertys as $key=>$val){
+                    $arrElements=[];
+                    foreach($list_propertys[$key]['name_element'] as $k=>$v){
+                        $arrElements[$k]=[
+                            'name_element' => $list_propertys[$key]['name_element'][$k]
+                        ];
+                    }
+                    $arrProperty[$key] = [
+                        'name_property' => $list_propertys[$key]['name_property'],
+                        'elements'=> $arrElements
+                    ];
+                }
+                $list_propertys = $arrProperty;
+                $params['list_propertys'] = json_encode($arrProperty);
+            }else{
+                $params['list_propertys']=null;
+            }
             $id = self::insertGetId($this->prepareParams($params));
             $wareHouseIDs = (new WarehouseModel())->listItems(null,['task' =>'user-list-all-items']);
             self::find($id)->warehouse()->attach($wareHouseIDs);
@@ -207,7 +229,7 @@ class ProductModel extends BackEndModel
                     $arrUnit[$key] = [
                         'name_unit' => $list_units['name_unit'][$key],
                         'exchange_value' => $list_units['exchange_value'][$key],
-                        'price' => $list_units['price'][$key],
+                        'price' => $list_units['price'][$key]
                     ];
                 }
                 $list_units = $arrUnit;
@@ -215,7 +237,59 @@ class ProductModel extends BackEndModel
             }else{
                 $params['list_units']=null;
             }
+            $arrProperty = [];
+            if(isset($params['list_propertys'])){
+                $list_propertys = $params['list_propertys'];
+                foreach($list_propertys as $key=>$val){
+                    $arrElements=[];
+                    foreach($list_propertys[$key]['name_element'] as $k=>$v){
+                        $arrElements[$k]=[
+                            'name_element' => $list_propertys[$key]['name_element'][$k]
+                        ];
+                    }
+                    $arrProperty[$key] = [
+                        'name_property' => $list_propertys[$key]['name_property'],
+                        'elements'=> $arrElements
+                    ];
+                }
+                $params['list_propertys'] = $arrProperty;
+               // $params['list_propertys'] = json_encode($arrProperty);
+            }else{
+                $params['list_propertys']=null;
+            }
+            // function combineArrays($arrays, $currentCombination = []) {
+            //     if (empty($arrays)) {
+            //         return [$currentCombination];
+            //     }
             
+            //     $result = [];
+            //     $currentArray = array_shift($arrays);
+            
+            //     // Kiểm tra kiểu dữ liệu trước khi sử dụng array_merge
+            //     if (is_array($currentArray)) {
+            //         foreach ($currentArray as $element) {
+            //             $result = array_merge(
+            //                 $result,
+            //                 combineArrays($arrays, array_merge($currentCombination, [$element['name_element']]))
+            //             );
+            //         }
+            //     }
+            
+            //     return $result;
+            // }
+            
+            $inputArray = $arrProperty;
+            $resultArray = [[]];
+            foreach ($inputArray as $property) {
+                $tempResult = [];
+                foreach ($property['elements'] as $element) {
+                    foreach ($resultArray as $result) {
+                        $tempResult[] = array_merge($result, [$element['name_element']]);
+                    }
+                }
+                $resultArray = $tempResult;
+            }
+            $params['list_property_details']=$resultArray;
             self::where('id', $params['id'])->update($this->prepareParams($params));
         }
         if($options['task'] == 'update-status-item-of-admin'){

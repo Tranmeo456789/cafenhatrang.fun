@@ -516,9 +516,7 @@ $(document).on('change', '.wp-select-color select', function() {
     $(this).closest('.wp-select-color').next().find('.form-control').css('background-color', selectValue);
 });
 // Gọi API để lấy dữ liệu từ Laravel
-fetch('get-chart-data')
-.then(response => response.json())
-.then(data => {
+fetch('get-chart-data').then(response => response.json()).then(data => {
     // Sử dụng Highcharts để vẽ biểu đồ
     Highcharts.chart('chart-container', {
         chart: {
@@ -541,34 +539,81 @@ fetch('get-chart-data')
         }
     });
 });
-document.addEventListener('DOMContentLoaded', function () {
-    var addButton = document.querySelector('.btn-add-unit');
-    addButton.addEventListener('click', function () {
-        // Tạo một đối tượng div
-        var newDiv = document.createElement('div');
-        newDiv.className = 'row row-detail';
-        newDiv.innerHTML = `
-                <div class="col-3 text-center">
-                    <div class="form-group row">
-                        <div class="col-12">
-                            <input class="form-control" placeholder="Tên đơn vị tính" name="list_units[name_unit][]" type="text" value="">
-                            <span class="help-block"></span>
-                        </div>
+$(document).on('click', ".btn-add-unit", function(event){
+    var newDiv = document.createElement('div');
+    newDiv.className = 'row row-detail';
+    newDiv.innerHTML = `
+            <div class="col-3 text-center">
+                <div class="form-group row">
+                    <div class="col-12">
+                        <input class="form-control" placeholder="Tên đơn vị tính" name="list_units[name_unit][]" type="text" value="">
                     </div>
                 </div>
-                <div class="col-3 text-center">
-                    <div class="form-group row">
-                        <div class="col-12">
-                            <input class="form-control" placeholder="Giá trị quy đổi" name="list_units[exchange_value][]" type="text" value="">
-                            <span class="help-block"></span>
-                        </div>
+            </div>
+            <div class="col-3 text-center">
+                <div class="form-group row">
+                    <div class="col-12">
+                        <input class="form-control" placeholder="Giá trị quy đổi" name="list_units[exchange_value][]" type="text" value="">
                     </div>
                 </div>
+            </div>
+            <div class="col-3 text-center">
+                <div class="form-group row">
+                    <div class="col-12">
+                        <input class="form-control" placeholder="Giá bán" name="list_units[price][]" type="text" value="">
+                    </div>
+                </div>
+            </div>
+            <div class="col-1 text-right">
+                <div class="form-group row">
+                    <div class="col-12">
+                        <button class="btn btn-sm btn-danger btn-delete-row-first" type="button" title='Xóa'><i class="fa fa-times"></i></button>
+                    </div>
+                </div>
+            </div>
+    `;
+    var appContainer = document.getElementById('list-unit-price');
+    appContainer.appendChild(newDiv);
+});
+
+$(document).on('click', ".btn-add-classify", function(event) {
+    var classifyContainer = document.getElementById('list-classify');
+    var countListProperty = (classifyContainer.getElementsByClassName('list-property') || []).length;
+    var newDiv = document.createElement('div');
+    newDiv.className = 'row row-detail list-property mb-3';
+    newDiv.innerHTML = `
+            <div class="col-3 text-center">
+                <div class="form-group row">
+                    <div class="col-12">
+                        <input class="form-control" placeholder="Tên thuộc tính" name="list_propertys[${countListProperty}][name_property]" type="text" value="">
+                    </div>
+                </div>
+            </div>
+            <div class="col-1 text-right">
+                <div class="form-group row">
+                    <div class="col-12">
+                        <button class="btn btn-sm btn-danger btn-delete-row-first" type="button" title='Xóa'><i class="fa fa-times"></i></button>
+                        <button class="btn btn-sm btn-primary btn-add-row-property" type="button" title='Thêm thành phần thuộc tính'><i class="fa fa-plus"></i></button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-8"></div>
+    `;
+    var appContainerClassify = document.getElementById('list-classify');
+    appContainerClassify.appendChild(newDiv);
+});
+$(document).on('click', ".btn-add-row-property", function(event) {
+    var appContainerProperty = $(this).closest('.list-property');
+    // Lấy index của phần tử cha trong danh sách các phần tử có class 'list-property'
+    var index = $('.list-property').index(appContainerProperty);
+    var newDivProperty = document.createElement('div');
+        newDivProperty.className = 'col-12 row row-detail';
+        newDivProperty.innerHTML = `
+                <div class="col-1"></div>
                 <div class="col-3 text-center">
                     <div class="form-group row">
                         <div class="col-12">
-                            <input class="form-control" placeholder="Giá bán" name="list_units[price][]" type="text" value="">
-                            <span class="help-block"></span>
+                            <input class="form-control" placeholder="Tên thành phần" name="list_propertys[${index}][name_element][]" type="text" value="">
                         </div>
                     </div>
                 </div>
@@ -576,14 +621,10 @@ document.addEventListener('DOMContentLoaded', function () {
                     <div class="form-group row">
                         <div class="col-12">
                             <button class="btn btn-sm btn-danger btn-delete-row-first" type="button" title='Xóa'><i class="fa fa-times"></i></button>
-                            <span class="help-block"></span>
                         </div>
                     </div>
                 </div>
         `;
-
-        // Lấy phần tử có id là "app" và thêm đối tượng div mới vào đó
-        var appContainer = document.getElementById('list-unit-price');
-        appContainer.appendChild(newDiv);
-    });
+        var appContainerProperty = $(this).closest('.list-property');
+        appContainerProperty[0].appendChild(newDivProperty);
 });

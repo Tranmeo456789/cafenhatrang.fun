@@ -223,7 +223,7 @@ span.highlight {
 .card-header.card-header-role::after{
     content: none;
 }
-.btn-add-unit{
+.btn-add-normal{
     padding: 5px 10px;
     background: #0061f2;
     color: #fff;
